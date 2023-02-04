@@ -1,0 +1,40 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/ui/lib/InputMapInputItem.gd" type="Script" id=1]
+
+[node name="InputMapInputItem" type="MarginContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBox" type="HBoxContainer" parent="."]
+margin_right = 147.0
+margin_bottom = 37.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="InputRemoveButton" type="Button" parent="HBox"]
+margin_right = 147.0
+margin_bottom = 37.0
+rect_min_size = Vector2( 16, 16 )
+size_flags_horizontal = 0
+size_flags_vertical = 6
+text = "Input Label"
+flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HelpLabel" type="Label" parent="HBox"]
+visible = false
+margin_left = 155.0
+margin_top = 6.0
+margin_right = 253.0
+margin_bottom = 31.0
+size_flags_horizontal = 0
+size_flags_vertical = 6
+custom_colors/font_color = Color( 0.501961, 0.501961, 0.501961, 1 )
+text = "(remove)"

@@ -1,0 +1,227 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://src/ui/lib/PopScreenButton.gd" type="Script" id=2]
+[ext_resource path="res://assets/fonts/font_header.tres" type="DynamicFont" id=5]
+[ext_resource path="res://src/ui/AudioScreen.gd" type="Script" id=6]
+[ext_resource path="res://assets/audio/ui/volume_pop.wav" type="AudioStream" id=7]
+[ext_resource path="res://src/ui/lib/UIScreen.tscn" type="PackedScene" id=69]
+
+[node name="AudioScreen" instance=ExtResource( 69 )]
+script = ExtResource( 6 )
+
+[node name="MasterPop" type="AudioStreamPlayer" parent="." index="0"]
+stream = ExtResource( 7 )
+
+[node name="MusicPop" type="AudioStreamPlayer" parent="." index="1"]
+stream = ExtResource( 7 )
+bus = "Music"
+
+[node name="EffectsPop" type="AudioStreamPlayer" parent="." index="2"]
+stream = ExtResource( 7 )
+bus = "Effects"
+
+[node name="InterfacePop" type="AudioStreamPlayer" parent="." index="3"]
+stream = ExtResource( 7 )
+bus = "Interface"
+
+[node name="Margin" type="MarginContainer" parent="." index="4"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 32
+custom_constants/margin_top = 32
+custom_constants/margin_left = 32
+custom_constants/margin_bottom = 32
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBox" type="VBoxContainer" parent="Margin" index="0"]
+margin_left = 32.0
+margin_top = 32.0
+margin_right = 1888.0
+margin_bottom = 1048.0
+
+[node name="Title" type="Label" parent="Margin/VBox" index="0"]
+margin_left = 816.0
+margin_right = 1040.0
+margin_bottom = 118.0
+size_flags_horizontal = 4
+custom_fonts/font = ExtResource( 5 )
+text = "Audio"
+align = 1
+
+[node name="VBoxCenter" type="VBoxContainer" parent="Margin/VBox" index="1"]
+margin_left = 527.0
+margin_top = 378.0
+margin_right = 1328.0
+margin_bottom = 622.0
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="MarginMain" type="MarginContainer" parent="Margin/VBox/VBoxCenter" index="0"]
+margin_right = 801.0
+margin_bottom = 55.0
+size_flags_horizontal = 7
+size_flags_vertical = 6
+custom_constants/margin_right = 6
+custom_constants/margin_left = 6
+
+[node name="HBoxMain" type="HBoxContainer" parent="Margin/VBox/VBoxCenter/MarginMain" index="0"]
+margin_left = 6.0
+margin_right = 795.0
+margin_bottom = 55.0
+size_flags_horizontal = 7
+size_flags_vertical = 6
+custom_constants/separation = 128
+
+[node name="Label" type="Label" parent="Margin/VBox/VBoxCenter/MarginMain/HBoxMain" index="0"]
+margin_right = 116.0
+margin_bottom = 55.0
+size_flags_horizontal = 2
+size_flags_vertical = 6
+text = "Main"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MainVolume" type="HSlider" parent="Margin/VBox/VBoxCenter/MarginMain/HBoxMain" index="1"]
+margin_left = 389.0
+margin_top = 15.0
+margin_right = 789.0
+margin_bottom = 39.0
+rect_min_size = Vector2( 400, 0 )
+size_flags_horizontal = 4
+size_flags_vertical = 6
+step = 5.0
+
+[node name="MarginMusic" type="MarginContainer" parent="Margin/VBox/VBoxCenter" index="1"]
+margin_top = 63.0
+margin_right = 801.0
+margin_bottom = 118.0
+size_flags_horizontal = 7
+size_flags_vertical = 6
+custom_constants/margin_right = 6
+custom_constants/margin_left = 6
+
+[node name="HBoxMusic" type="HBoxContainer" parent="Margin/VBox/VBoxCenter/MarginMusic" index="0"]
+margin_left = 6.0
+margin_right = 795.0
+margin_bottom = 55.0
+size_flags_horizontal = 7
+size_flags_vertical = 6
+custom_constants/separation = 128
+
+[node name="Label" type="Label" parent="Margin/VBox/VBoxCenter/MarginMusic/HBoxMusic" index="0"]
+margin_right = 145.0
+margin_bottom = 55.0
+size_flags_horizontal = 2
+size_flags_vertical = 6
+text = "Music"
+
+[node name="MusicVolume" type="HSlider" parent="Margin/VBox/VBoxCenter/MarginMusic/HBoxMusic" index="1"]
+margin_left = 389.0
+margin_top = 15.0
+margin_right = 789.0
+margin_bottom = 39.0
+rect_min_size = Vector2( 400, 0 )
+size_flags_horizontal = 4
+size_flags_vertical = 6
+step = 5.0
+
+[node name="MarginEffects" type="MarginContainer" parent="Margin/VBox/VBoxCenter" index="2"]
+margin_top = 126.0
+margin_right = 801.0
+margin_bottom = 181.0
+size_flags_horizontal = 7
+size_flags_vertical = 6
+custom_constants/margin_right = 6
+custom_constants/margin_left = 6
+
+[node name="HBoxEffects" type="HBoxContainer" parent="Margin/VBox/VBoxCenter/MarginEffects" index="0"]
+margin_left = 6.0
+margin_right = 795.0
+margin_bottom = 55.0
+size_flags_horizontal = 7
+size_flags_vertical = 6
+custom_constants/separation = 128
+
+[node name="Label" type="Label" parent="Margin/VBox/VBoxCenter/MarginEffects/HBoxEffects" index="0"]
+margin_right = 203.0
+margin_bottom = 55.0
+size_flags_horizontal = 2
+size_flags_vertical = 6
+text = "Effects"
+
+[node name="EffectsVolume" type="HSlider" parent="Margin/VBox/VBoxCenter/MarginEffects/HBoxEffects" index="1"]
+margin_left = 389.0
+margin_top = 15.0
+margin_right = 789.0
+margin_bottom = 39.0
+rect_min_size = Vector2( 400, 0 )
+size_flags_horizontal = 4
+size_flags_vertical = 6
+step = 5.0
+
+[node name="MarginInterface" type="MarginContainer" parent="Margin/VBox/VBoxCenter" index="3"]
+margin_top = 189.0
+margin_right = 801.0
+margin_bottom = 244.0
+size_flags_horizontal = 7
+size_flags_vertical = 6
+custom_constants/margin_right = 6
+custom_constants/margin_left = 6
+
+[node name="HBoxInterface" type="HBoxContainer" parent="Margin/VBox/VBoxCenter/MarginInterface" index="0"]
+margin_left = 6.0
+margin_right = 795.0
+margin_bottom = 55.0
+size_flags_horizontal = 7
+size_flags_vertical = 6
+custom_constants/separation = 128
+
+[node name="Label" type="Label" parent="Margin/VBox/VBoxCenter/MarginInterface/HBoxInterface" index="0"]
+margin_right = 261.0
+margin_bottom = 55.0
+size_flags_horizontal = 2
+size_flags_vertical = 6
+text = "Interface"
+
+[node name="InterfaceVolume" type="HSlider" parent="Margin/VBox/VBoxCenter/MarginInterface/HBoxInterface" index="1"]
+margin_left = 389.0
+margin_top = 15.0
+margin_right = 789.0
+margin_bottom = 39.0
+rect_min_size = Vector2( 400, 0 )
+size_flags_horizontal = 4
+size_flags_vertical = 6
+step = 5.0
+value = 50.0
+
+[node name="VBoxFooter" type="VBoxContainer" parent="Margin/VBox" index="2"]
+margin_left = 709.0
+margin_top = 882.0
+margin_right = 1147.0
+margin_bottom = 1016.0
+size_flags_horizontal = 6
+
+[node name="ResetButton" type="Button" parent="Margin/VBox/VBoxFooter" index="0"]
+margin_right = 438.0
+margin_bottom = 63.0
+size_flags_horizontal = 4
+text = "Reset Defaults"
+
+[node name="BackButton" type="Button" parent="Margin/VBox/VBoxFooter" index="1"]
+margin_left = 145.0
+margin_top = 71.0
+margin_right = 293.0
+margin_bottom = 134.0
+size_flags_horizontal = 4
+text = "Back"
+script = ExtResource( 2 )
+
+[connection signal="value_changed" from="Margin/VBox/VBoxCenter/MarginMain/HBoxMain/MainVolume" to="." method="_on_volume_slider_value_changed" binds= [ "Master" ]]
+[connection signal="value_changed" from="Margin/VBox/VBoxCenter/MarginMusic/HBoxMusic/MusicVolume" to="." method="_on_volume_slider_value_changed" binds= [ "Music" ]]
+[connection signal="value_changed" from="Margin/VBox/VBoxCenter/MarginEffects/HBoxEffects/EffectsVolume" to="." method="_on_volume_slider_value_changed" binds= [ "Effects" ]]
+[connection signal="value_changed" from="Margin/VBox/VBoxCenter/MarginInterface/HBoxInterface/InterfaceVolume" to="." method="_on_volume_slider_value_changed" binds= [ "Interface" ]]
+[connection signal="pressed" from="Margin/VBox/VBoxFooter/ResetButton" to="." method="_on_reset_button_pressed"]

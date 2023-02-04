@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/utils/Fader.gd" type="Script" id=1]
+[ext_resource path="res://src/utils/OffscreenPointer.gd" type="Script" id=2]
+
+[node name="OffscreenPointer" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Arrow" type="Polygon2D" parent="."]
+polygon = PoolVector2Array( 0, 0, -48, -24, -52.975, -25.5181, -57.9766, -26, -63.0923, -25.4949, -67.9329, -24.0386, -72.416, -21.6532, -76.3953, -18.3793, -79.657, -14.4012, -82.0229, -9.95129, -83.5168, -5.078, -84.0117, -0.0217285, -83.5024, 5.06738, -82.0366, 9.93933, -79.6492, 14.3971, -76.4038, 18.3755, -72.5068, 21.5845, -67.9927, 24.041, -63.0503, 25.5006, -58.0078, 26.0118, -52.8748, 25.5165, -48, 24 )
+
+[node name="Fader" type="Tween" parent="."]
+script = ExtResource( 1 )

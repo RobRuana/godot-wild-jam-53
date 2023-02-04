@@ -1,0 +1,79 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://src/LetterContainer.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/HUD.gd" type="Script" id=2]
+[ext_resource path="res://src/utils/Fader.gd" type="Script" id=3]
+[ext_resource path="res://assets/theme/ui_theme.tres" type="Theme" id=4]
+[ext_resource path="res://src/HealthMeter.tscn" type="PackedScene" id=6]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 1, 1, 1, 0 )
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color( 1, 1, 1, 1 )
+
+[node name="HUD" type="MarginContainer"]
+modulate = Color( 1, 1, 1, 0 )
+margin_right = 1920.0
+margin_bottom = 1080.0
+custom_constants/margin_right = 20
+custom_constants/margin_top = 20
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 20
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="Fader" type="Tween" parent="."]
+script = ExtResource( 3 )
+
+[node name="HealthMeter" parent="." instance=ExtResource( 6 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 52.0
+margin_bottom = 52.0
+
+[node name="ZoomMargin" type="MarginContainer" parent="."]
+visible = false
+margin_left = 20.0
+margin_top = 988.0
+margin_right = 1900.0
+margin_bottom = 1060.0
+size_flags_vertical = 8
+custom_constants/margin_right = 480
+custom_constants/margin_top = 0
+custom_constants/margin_left = 480
+custom_constants/margin_bottom = 64
+
+[node name="ZoomPanel" type="PanelContainer" parent="ZoomMargin"]
+margin_left = 480.0
+margin_right = 1400.0
+margin_bottom = 8.0
+size_flags_vertical = 8
+custom_styles/panel = SubResource( 1 )
+
+[node name="ZoomMeter" type="ProgressBar" parent="ZoomMargin/ZoomPanel"]
+modulate = Color( 0, 0, 0, 1 )
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 916.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 0, 16 )
+size_flags_horizontal = 3
+size_flags_vertical = 8
+theme = ExtResource( 4 )
+value = 100.0
+percent_visible = false
+
+[node name="LetterContainer" parent="." instance=ExtResource( 1 )]
+position = Vector2( 960, 44 )
+scale = Vector2( 0.5, 0.5 )
+is_static = true
+default_modulate = Color( 0.501961, 0.501961, 0.501961, 0.501961 )

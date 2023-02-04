@@ -1,0 +1,55 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/ui/lib/InputMapActionEditor.gd" type="Script" id=1]
+[ext_resource path="res://assets/fonts/font_default_bold.tres" type="DynamicFont" id=2]
+
+[node name="InputMapActionEditor" type="MarginContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBox" type="VBoxContainer" parent="."]
+margin_right = 480.0
+margin_bottom = 270.0
+
+[node name="HBox" type="HBoxContainer" parent="VBox"]
+margin_right = 60.0
+margin_bottom = 25.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="AddInputButton" type="Button" parent="VBox/HBox"]
+margin_right = 60.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 16, 16 )
+size_flags_horizontal = 0
+size_flags_vertical = 6
+custom_fonts/font = ExtResource( 2 )
+text = "Action"
+flat = true
+
+[node name="HelpLabel" type="Label" parent="VBox/HBox"]
+visible = false
+margin_left = 68.0
+margin_right = 123.0
+margin_bottom = 25.0
+size_flags_horizontal = 0
+size_flags_vertical = 6
+custom_colors/font_color = Color( 0.501961, 0.501961, 0.501961, 1 )
+text = "(add)"
+
+[node name="Margin" type="MarginContainer" parent="VBox"]
+margin_top = 33.0
+margin_right = 480.0
+margin_bottom = 33.0
+size_flags_horizontal = 3
+custom_constants/margin_left = 24
+
+[node name="InputList" type="VBoxContainer" parent="VBox/Margin"]
+margin_left = 24.0
+margin_right = 480.0
+
+[connection signal="pressed" from="VBox/HBox/AddInputButton" to="." method="_on_add_input_button_pressed"]

@@ -1,0 +1,38 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://src/Level.gd" type="Script" id=1]
+[ext_resource path="res://src/Title.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/shaders/wipe.shader" type="Shader" id=3]
+[ext_resource path="res://src/Goal.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/utils/OffscreenPointer.tscn" type="PackedScene" id=5]
+[ext_resource path="res://src/utils/Fader.gd" type="Script" id=6]
+[ext_resource path="res://src/LetterContainer.tscn" type="PackedScene" id=7]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 3 )
+shader_param/progress = 0.0
+
+[node name="Level" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="Fader" type="Tween" parent="."]
+script = ExtResource( 6 )
+
+[node name="TitleContainer" type="Node2D" parent="."]
+position = Vector2( 960, 336 )
+
+[node name="Title" parent="TitleContainer" instance=ExtResource( 2 )]
+material = SubResource( 1 )
+
+[node name="LetterContainer" parent="." instance=ExtResource( 7 )]
+position = Vector2( 960, 496 )
+default_modulate = Color( 0, 0, 0, 1 )
+
+[node name="Goal" parent="." instance=ExtResource( 4 )]
+modulate = Color( 0, 0.8, 0, 1 )
+position = Vector2( 1408, 496 )
+z_index = -10
+
+[node name="OffscreenPointer" parent="Goal" instance=ExtResource( 5 )]

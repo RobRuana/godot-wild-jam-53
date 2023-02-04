@@ -1,0 +1,82 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://src/ui/lib/PopScreenButton.gd" type="Script" id=1]
+[ext_resource path="res://assets/fonts/font_header.tres" type="DynamicFont" id=2]
+[ext_resource path="res://src/ui/QuitToMenuScreen.gd" type="Script" id=3]
+[ext_resource path="res://src/ui/lib/SwitchRootSceneButton.gd" type="Script" id=4]
+[ext_resource path="res://src/ui/lib/UIScreen.tscn" type="PackedScene" id=69]
+
+[sub_resource type="CanvasItemMaterial" id=1]
+blend_mode = 1
+
+[node name="QuitToMenuScreen" instance=ExtResource( 69 )]
+script = ExtResource( 3 )
+
+[node name="Margin" type="MarginContainer" parent="." index="0"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 32
+custom_constants/margin_top = 32
+custom_constants/margin_left = 32
+custom_constants/margin_bottom = 32
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBox" type="VBoxContainer" parent="Margin" index="0"]
+margin_left = 32.0
+margin_top = 32.0
+margin_right = 1888.0
+margin_bottom = 1048.0
+
+[node name="Title" type="Label" parent="Margin/VBox" index="0"]
+material = SubResource( 1 )
+margin_left = 659.0
+margin_right = 1196.0
+margin_bottom = 118.0
+size_flags_horizontal = 4
+custom_fonts/font = ExtResource( 2 )
+text = "Quit to Menu?"
+align = 1
+
+[node name="HBox" type="HBoxContainer" parent="Margin/VBox" index="1"]
+margin_top = 539.0
+margin_right = 1856.0
+margin_bottom = 602.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+
+[node name="SpacerLeft" type="Control" parent="Margin/VBox/HBox" index="0"]
+margin_left = 306.0
+margin_right = 306.0
+margin_bottom = 63.0
+size_flags_horizontal = 6
+
+[node name="HBox" type="HBoxContainer" parent="Margin/VBox/HBox" index="1"]
+margin_left = 621.0
+margin_right = 1234.0
+margin_bottom = 63.0
+size_flags_horizontal = 3
+
+[node name="BackButton" type="Button" parent="Margin/VBox/HBox/HBox" index="0"]
+margin_left = 106.0
+margin_right = 196.0
+margin_bottom = 63.0
+size_flags_horizontal = 6
+text = "No"
+script = ExtResource( 1 )
+
+[node name="QuitButton" type="Button" parent="Margin/VBox/HBox/HBox" index="1"]
+margin_left = 402.0
+margin_right = 521.0
+margin_bottom = 63.0
+size_flags_horizontal = 6
+text = "Yes"
+script = ExtResource( 4 )
+scene = "res://src/Main.tscn"
+
+[node name="SpacerRight" type="Control" parent="Margin/VBox/HBox" index="2"]
+margin_left = 1549.0
+margin_right = 1549.0
+margin_bottom = 63.0
+size_flags_horizontal = 6

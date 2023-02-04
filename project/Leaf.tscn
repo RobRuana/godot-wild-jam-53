@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Leaf.gd" type="Script" id=1]
+[ext_resource path="res://assets/images/leaf.png" type="Texture" id=2]
+
+[sub_resource type="Gradient" id=1]
+interpolation_mode = 2
+offsets = PoolRealArray( 0, 0.489305, 1 )
+colors = PoolColorArray( 0, 0.733333, 0, 1, 0.880859, 0.854582, 0.208172, 1, 0.496094, 0.413734, 0.248047, 1 )
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 20.0
+
+[node name="Leaf" type="Node2D"]
+modulate = Color( 0, 0.733333, 0, 1 )
+script = ExtResource( 1 )
+color_gradient = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( -3, -24 )
+texture = ExtResource( 2 )
+
+[node name="MoistureSensor" type="Area2D" parent="."]
+position = Vector2( -2, -21 )
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MoistureSensor"]
+shape = SubResource( 2 )

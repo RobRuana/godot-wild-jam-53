@@ -1,0 +1,223 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://src/ui/lib/GamepadScrollContainer.gd" type="Script" id=1]
+[ext_resource path="res://assets/fonts/font_header.tres" type="DynamicFont" id=2]
+[ext_resource path="res://src/ui/CreditsScreen.gd" type="Script" id=3]
+[ext_resource path="res://src/ui/lib/PopScreenButton.gd" type="Script" id=4]
+[ext_resource path="res://assets/fonts/font_text.tres" type="DynamicFont" id=5]
+[ext_resource path="res://src/ui/lib/UIScreen.tscn" type="PackedScene" id=69]
+
+[node name="CreditsScreen" instance=ExtResource( 69 )]
+script = ExtResource( 3 )
+
+[node name="Margin" type="MarginContainer" parent="." index="0"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 32
+custom_constants/margin_top = 32
+custom_constants/margin_left = 32
+custom_constants/margin_bottom = 32
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBox" type="VBoxContainer" parent="Margin" index="0"]
+margin_left = 32.0
+margin_top = 32.0
+margin_right = 1888.0
+margin_bottom = 1048.0
+
+[node name="Title" type="Label" parent="Margin/VBox" index="0"]
+margin_left = 785.0
+margin_right = 1071.0
+margin_bottom = 118.0
+size_flags_horizontal = 4
+size_flags_vertical = 0
+custom_fonts/font = ExtResource( 2 )
+text = "Credits"
+align = 1
+
+[node name="Margin" type="MarginContainer" parent="Margin/VBox" index="1"]
+margin_top = 126.0
+margin_right = 1856.0
+margin_bottom = 945.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_right = 32
+custom_constants/margin_top = 32
+custom_constants/margin_left = 32
+custom_constants/margin_bottom = 32
+
+[node name="Scroll" type="ScrollContainer" parent="Margin/VBox/Margin" index="0"]
+margin_left = 32.0
+margin_top = 32.0
+margin_right = 1824.0
+margin_bottom = 787.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+follow_focus = true
+scroll_horizontal_enabled = false
+script = ExtResource( 1 )
+gamepad_scroll_speed = 60.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Margin/VBox/Margin/Scroll" index="0"]
+margin_right = 1776.0
+margin_bottom = 4005.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/normal_font = ExtResource( 5 )
+bbcode_enabled = true
+bbcode_text = "
+[font=res://assets/fonts/font_large.tres]Music[/font]
+[url=https://freesound.org/people/frankum/sounds/384468/]\"Vintage Elecro pop loop\"[/url] by Frankum
+Licensed under [url=https://creativecommons.org/licenses/by/3.0/]Attribution 3.0 Unported (CC BY 3.0)[/url]
+
+
+
+
+[font=res://assets/fonts/font_large.tres]Sounds[/font]
+[url=https://freesound.org/people/patchytherat/sounds/532215/]\"meow (hungry).wav\"[/url] by patchytherat
+Licensed under [url=https://creativecommons.org/publicdomain/zero/1.0/]CC0 1.0 Universal (CC0 1.0)[/url]
+
+[url=https://freesound.org/people/15FPanskaDavid_Matous/sounds/461823/]\"meowing_long.wav\"[/url] by 15FPanskaDavid_Matous
+Licensed under [url=https://creativecommons.org/publicdomain/zero/1.0/]CC0 1.0 Universal (CC0 1.0)[/url]
+
+[url=https://freesound.org/people/InspectorJ/sounds/415209/]\"Cat, Screaming, A.wav\"[/url] by InspectorJ
+Licensed under [url=https://creativecommons.org/licenses/by/3.0/]Attribution 3.0 Unported (CC BY 3.0)[/url]
+
+[url=https://freesound.org/people/Kastenfrosch/sounds/162476/]\"gotItem.mp3\"[/url] by Kastenfrosch
+Licensed under [url=https://creativecommons.org/publicdomain/zero/1.0/]CC0 1.0 Universal (CC0 1.0)[/url]
+
+[url=https://freesound.org/people/magnuswaker/sounds/524950/]\"Punch Hard 1\"[/url] by magnuswaker
+Licensed under [url=https://creativecommons.org/publicdomain/zero/1.0/]CC0 1.0 Universal (CC0 1.0)[/url]
+
+[url=https://freesound.org/people/Kastenfrosch/sounds/162473/]\"successful.mp3\"[/url] by Kastenfrosch
+Licensed under [url=https://creativecommons.org/publicdomain/zero/1.0/]CC0 1.0 Universal (CC0 1.0)[/url]
+
+
+
+
+[font=res://assets/fonts/font_large.tres]Godot Engine[/font]
+This game uses Godot Engine, available under the following license:
+
+Copyright (c) 2007-2021 Juan Linietsky, Ariel Manzur. Copyright (c) 2014-2021 Godot Engine contributors.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+
+
+[font=res://assets/fonts/font_large.tres]FreeType[/font]
+Portions of this software are copyright © 2021 The FreeType Project (www.freetype.org). All rights reserved.
+
+
+
+
+[font=res://assets/fonts/font_large.tres]ENet[/font]
+Copyright (c) 2002-2021 Lee Salzman
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+
+
+[font=res://assets/fonts/font_large.tres]MBedTLS[/font]
+Copyright The Mbed TLS Contributors
+
+Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+"
+text = "
+Music
+\"Vintage Elecro pop loop\" by Frankum
+Licensed under Attribution 3.0 Unported (CC BY 3.0)
+
+
+
+
+Sounds
+\"meow (hungry).wav\" by patchytherat
+Licensed under CC0 1.0 Universal (CC0 1.0)
+
+\"meowing_long.wav\" by 15FPanskaDavid_Matous
+Licensed under CC0 1.0 Universal (CC0 1.0)
+
+\"Cat, Screaming, A.wav\" by InspectorJ
+Licensed under Attribution 3.0 Unported (CC BY 3.0)
+
+\"gotItem.mp3\" by Kastenfrosch
+Licensed under CC0 1.0 Universal (CC0 1.0)
+
+\"Punch Hard 1\" by magnuswaker
+Licensed under CC0 1.0 Universal (CC0 1.0)
+
+\"successful.mp3\" by Kastenfrosch
+Licensed under CC0 1.0 Universal (CC0 1.0)
+
+
+
+
+Godot Engine
+This game uses Godot Engine, available under the following license:
+
+Copyright (c) 2007-2021 Juan Linietsky, Ariel Manzur. Copyright (c) 2014-2021 Godot Engine contributors.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+
+
+FreeType
+Portions of this software are copyright © 2021 The FreeType Project (www.freetype.org). All rights reserved.
+
+
+
+
+ENet
+Copyright (c) 2002-2021 Lee Salzman
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+
+
+MBedTLS
+Copyright The Mbed TLS Contributors
+
+Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+"
+fit_content_height = true
+scroll_active = false
+
+[node name="BackButton" type="Button" parent="Margin/VBox" index="2"]
+margin_left = 854.0
+margin_top = 953.0
+margin_right = 1002.0
+margin_bottom = 1016.0
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "Back"
+script = ExtResource( 4 )

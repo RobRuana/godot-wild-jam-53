@@ -1,0 +1,4 @@
+# .gitignore
+
+# Godot-specific ignores
+.import/

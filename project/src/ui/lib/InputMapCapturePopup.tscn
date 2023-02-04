@@ -1,0 +1,97 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://src/ui/lib/InputMapCapturePopup.gd" type="Script" id=1]
+[ext_resource path="res://assets/theme/ui_dark_transparent_stylebox.tres" type="StyleBox" id=2]
+[ext_resource path="res://assets/fonts/font_default_bold.tres" type="DynamicFont" id=3]
+[ext_resource path="res://assets/theme/ui_theme.tres" type="Theme" id=4]
+
+[node name="InputMapCapturePopup" type="Popup"]
+size_flags_horizontal = 7
+size_flags_vertical = 7
+theme = ExtResource( 4 )
+popup_exclusive = true
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Center" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="Center"]
+margin_right = 240.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 240, 100 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Margin" type="MarginContainer" parent="Center/Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 10
+custom_constants/margin_top = 10
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBox" type="VBoxContainer" parent="Center/Panel/Margin"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 230.0
+margin_bottom = 90.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ActionLabel" type="Label" parent="Center/Panel/Margin/VBox"]
+margin_right = 220.0
+margin_bottom = 13.0
+custom_fonts/font = ExtResource( 3 )
+text = " Action"
+align = 1
+
+[node name="InputLabel" type="Label" parent="Center/Panel/Margin/VBox"]
+margin_top = 21.0
+margin_right = 220.0
+margin_bottom = 34.0
+size_flags_horizontal = 3
+size_flags_vertical = 2
+align = 1
+autowrap = true
+
+[node name="HBox" type="HBoxContainer" parent="Center/Panel/Margin/VBox"]
+margin_top = 65.0
+margin_right = 220.0
+margin_bottom = 80.0
+
+[node name="CancelButton" type="Button" parent="Center/Panel/Margin/VBox/HBox"]
+margin_left = 36.0
+margin_right = 70.0
+margin_bottom = 15.0
+input_pass_on_modal_close_click = false
+size_flags_horizontal = 6
+text = "Cancel"
+
+[node name="AcceptButton" type="Button" parent="Center/Panel/Margin/VBox/HBox"]
+margin_left = 148.0
+margin_right = 185.0
+margin_bottom = 15.0
+input_pass_on_modal_close_click = false
+size_flags_horizontal = 6
+text = "Accept"
+
+[connection signal="pressed" from="Center/Panel/Margin/VBox/HBox/CancelButton" to="." method="_on_cancel_button_pressed"]
+[connection signal="pressed" from="Center/Panel/Margin/VBox/HBox/AcceptButton" to="." method="_on_accept_button_pressed"]

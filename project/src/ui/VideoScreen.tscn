@@ -1,0 +1,105 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://src/ui/lib/PopScreenButton.gd" type="Script" id=2]
+[ext_resource path="res://src/ui/VideoScreen.gd" type="Script" id=3]
+[ext_resource path="res://assets/fonts/font_header.tres" type="DynamicFont" id=5]
+[ext_resource path="res://src/ui/lib/UIScreen.tscn" type="PackedScene" id=69]
+
+[node name="VideoScreen" instance=ExtResource( 69 )]
+script = ExtResource( 3 )
+
+[node name="Margin" type="MarginContainer" parent="." index="0"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 32
+custom_constants/margin_top = 32
+custom_constants/margin_left = 32
+custom_constants/margin_bottom = 32
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBox" type="VBoxContainer" parent="Margin" index="0"]
+margin_left = 32.0
+margin_top = 32.0
+margin_right = 1888.0
+margin_bottom = 1048.0
+
+[node name="Title" type="Label" parent="Margin/VBox" index="0"]
+margin_left = 816.0
+margin_right = 1040.0
+margin_bottom = 118.0
+size_flags_horizontal = 4
+custom_fonts/font = ExtResource( 5 )
+text = "Video"
+align = 1
+
+[node name="VBoxCenter" type="VBoxContainer" parent="Margin/VBox" index="1"]
+margin_left = 552.0
+margin_top = 428.0
+margin_right = 1303.0
+margin_bottom = 571.0
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="MarginWindowMode" type="MarginContainer" parent="Margin/VBox/VBoxCenter" index="0"]
+margin_right = 751.0
+margin_bottom = 63.0
+
+[node name="HBox" type="HBoxContainer" parent="Margin/VBox/VBoxCenter/MarginWindowMode" index="0"]
+margin_right = 751.0
+margin_bottom = 63.0
+custom_constants/separation = 32
+
+[node name="Label" type="Label" parent="Margin/VBox/VBoxCenter/MarginWindowMode/HBox" index="0"]
+margin_top = 4.0
+margin_right = 319.0
+margin_bottom = 59.0
+text = "Window Mode"
+
+[node name="WindowModeButton" type="OptionButton" parent="Margin/VBox/VBoxCenter/MarginWindowMode/HBox" index="1"]
+margin_left = 351.0
+margin_right = 751.0
+margin_bottom = 63.0
+rect_min_size = Vector2( 400, 0 )
+text = "Normal"
+
+[node name="MarginVsync" type="MarginContainer" parent="Margin/VBox/VBoxCenter" index="1"]
+margin_top = 71.0
+margin_right = 751.0
+margin_bottom = 143.0
+custom_constants/margin_left = -16
+
+[node name="VsyncEnabledButton" type="CheckButton" parent="Margin/VBox/VBoxCenter/MarginVsync" index="0"]
+margin_left = -16.0
+margin_right = 553.0
+margin_bottom = 72.0
+size_flags_horizontal = 2
+custom_constants/hseparation = 32
+text = "VSync Enabled"
+
+[node name="VBoxFooter" type="VBoxContainer" parent="Margin/VBox" index="2"]
+margin_left = 709.0
+margin_top = 882.0
+margin_right = 1147.0
+margin_bottom = 1016.0
+size_flags_horizontal = 6
+
+[node name="ResetButton" type="Button" parent="Margin/VBox/VBoxFooter" index="0"]
+margin_right = 438.0
+margin_bottom = 63.0
+size_flags_horizontal = 4
+text = "Reset Defaults"
+
+[node name="BackButton" type="Button" parent="Margin/VBox/VBoxFooter" index="1"]
+margin_left = 145.0
+margin_top = 71.0
+margin_right = 293.0
+margin_bottom = 134.0
+size_flags_horizontal = 4
+text = "Back"
+script = ExtResource( 2 )
+
+[connection signal="item_selected" from="Margin/VBox/VBoxCenter/MarginWindowMode/HBox/WindowModeButton" to="." method="_on_window_mode_item_selected"]
+[connection signal="toggled" from="Margin/VBox/VBoxCenter/MarginVsync/VsyncEnabledButton" to="." method="_on_vsync_button_toggled"]
+[connection signal="pressed" from="Margin/VBox/VBoxFooter/ResetButton" to="." method="_on_reset_button_pressed"]

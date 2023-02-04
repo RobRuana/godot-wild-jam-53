@@ -1,0 +1,117 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://src/Goal.gd" type="Script" id=1]
+[ext_resource path="res://assets/images/white.png" type="Texture" id=2]
+[ext_resource path="res://src/shaders/ring.shader" type="Shader" id=3]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 160.0
+
+[sub_resource type="ShaderMaterial" id=5]
+shader = ExtResource( 3 )
+shader_param/border_width = 0.2
+shader_param/gap_width = 0.2
+shader_param/gap_modulo = 1.571
+shader_param/rotation_scale = -0.25
+
+[sub_resource type="ShaderMaterial" id=6]
+shader = ExtResource( 3 )
+shader_param/border_width = 0.25
+shader_param/gap_width = 0.0
+shader_param/gap_modulo = 1.5708
+shader_param/rotation_scale = 0.0
+
+[sub_resource type="Shader" id=7]
+code = "shader_type canvas_item;
+
+const float PI = 3.14159265359;
+const float HALF_PI = 1.57079632679;
+const float TWO_PI = 6.2831853072;
+
+
+uniform float border_width: hint_range(0.0001, 1.0) = 0.2;
+uniform float gap_width: hint_range(0.0, 6.2831853072) = 0.2;
+uniform float gap_modulo: hint_range(0.0001, 6.2831853072) = 1.57079632679;
+uniform float rotation_scale = 1.0;
+
+
+float ease_in_out(float n) { return 0.5 + (sin((clamp(n, 0.0, 1.0) - 0.5) * PI) * 0.5); }
+float ease_in_out_mix(float f1, float f2, float n) { return mix(f1, f2, ease_in_out(n)); }
+float ease_in(float n) { return 1.0 + sin((clamp(n, 0.0, 1.0) - 1.0) * HALF_PI); }
+float ease_in_mix(float f1, float f2, float n) { return mix(f1, f2, ease_in(n)); }
+float ease_out(float n) { return sin(clamp(n, 0.0, 1.0) * HALF_PI); }
+float ease_out_mix(float f1, float f2, float n) { return mix(f1, f2, ease_out(n)); }
+
+void fragment() {
+	vec4 tex = texture(TEXTURE, UV);
+	vec2 center_uv = ((UV) - vec2(0.5, 0.5)) * 2.0;
+	float d = length(center_uv);
+	float alpha = 1.0;
+	if (d > 1.0 || d < 1.0 - border_width) {
+		alpha = 0.0;
+	} else {
+		float angle = mod(atan(center_uv.y, center_uv.x) + (TIME * rotation_scale), gap_modulo);
+		if (angle > gap_modulo - (gap_width * 0.5) || angle < (gap_width * 0.5)) {
+			alpha = 0.0;
+		}
+	}
+	COLOR = vec4(tex.rgb, alpha);
+}
+"
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = SubResource( 7 )
+shader_param/border_width = 0.55
+shader_param/gap_width = 1.345
+shader_param/gap_modulo = 1.5708
+shader_param/rotation_scale = 0.25
+
+[node name="Goal" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 1 )
+
+[node name="Ring2" type="TextureRect" parent="."]
+material = SubResource( 5 )
+margin_left = -160.0
+margin_top = -160.0
+margin_right = 160.0
+margin_bottom = 160.0
+rect_min_size = Vector2( 320, 320 )
+rect_pivot_offset = Vector2( 160, 160 )
+texture = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Ring1" type="TextureRect" parent="."]
+material = SubResource( 6 )
+margin_left = -102.4
+margin_top = -102.4
+margin_right = 102.4
+margin_bottom = 102.4
+rect_min_size = Vector2( 204.8, 204.8 )
+texture = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Ring0" type="TextureRect" parent="."]
+material = SubResource( 4 )
+margin_left = -80.0
+margin_top = -80.0
+margin_right = 83.84
+margin_bottom = 83.84
+rect_min_size = Vector2( 163.84, 163.84 )
+texture = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}

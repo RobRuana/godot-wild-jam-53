@@ -1,0 +1,132 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://assets/fonts/font_text.tres" type="DynamicFont" id=1]
+[ext_resource path="res://assets/fonts/font_header.tres" type="DynamicFont" id=2]
+[ext_resource path="res://assets/images/controls.png" type="Texture" id=3]
+[ext_resource path="res://assets/images/step_2.png" type="Texture" id=4]
+[ext_resource path="res://src/ui/lib/PopScreenButton.gd" type="Script" id=5]
+[ext_resource path="res://assets/images/step_1.png" type="Texture" id=6]
+[ext_resource path="res://src/ui/lib/UIScreen.tscn" type="PackedScene" id=69]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends UIScreen
+"
+
+[node name="ControlsScreen" instance=ExtResource( 69 )]
+script = SubResource( 1 )
+
+[node name="Margin" type="MarginContainer" parent="." index="0"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 32
+custom_constants/margin_top = 32
+custom_constants/margin_left = 32
+custom_constants/margin_bottom = 32
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBox" type="VBoxContainer" parent="Margin" index="0"]
+margin_left = 32.0
+margin_top = 32.0
+margin_right = 1888.0
+margin_bottom = 1048.0
+
+[node name="Title" type="Label" parent="Margin/VBox" index="0"]
+margin_left = 760.0
+margin_right = 1095.0
+margin_bottom = 118.0
+size_flags_horizontal = 4
+size_flags_vertical = 2
+custom_fonts/font = ExtResource( 2 )
+text = "Controls"
+align = 1
+
+[node name="VBox" type="VBoxContainer" parent="Margin/VBox" index="1"]
+margin_top = 166.0
+margin_right = 1856.0
+margin_bottom = 849.0
+size_flags_horizontal = 7
+size_flags_vertical = 7
+custom_constants/separation = 60
+
+[node name="Margin1" type="MarginContainer" parent="Margin/VBox/VBox" index="0"]
+margin_left = 483.0
+margin_right = 1373.0
+margin_bottom = 400.0
+size_flags_horizontal = 6
+size_flags_vertical = 6
+
+[node name="TextureRect" type="TextureRect" parent="Margin/VBox/VBox/Margin1" index="0"]
+margin_right = 890.0
+margin_bottom = 400.0
+size_flags_vertical = 6
+texture = ExtResource( 3 )
+
+[node name="Margin2" type="MarginContainer" parent="Margin/VBox/VBox" index="1"]
+margin_top = 460.0
+margin_right = 1856.0
+margin_bottom = 683.0
+
+[node name="VBox" type="VBoxContainer" parent="Margin/VBox/VBox/Margin2" index="0"]
+margin_right = 1856.0
+margin_bottom = 223.0
+size_flags_horizontal = 7
+size_flags_vertical = 2
+custom_constants/separation = 16
+
+[node name="Box1" type="HBoxContainer" parent="Margin/VBox/VBox/Margin2/VBox" index="0"]
+margin_right = 1856.0
+margin_bottom = 37.0
+size_flags_horizontal = 3
+custom_constants/separation = 8
+
+[node name="Label1" type="Label" parent="Margin/VBox/VBox/Margin2/VBox/Box1" index="0"]
+margin_right = 924.0
+margin_bottom = 37.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 1 )
+text = "Push letters into target with meow"
+align = 1
+
+[node name="Label2" type="Label" parent="Margin/VBox/VBox/Margin2/VBox/Box1" index="1"]
+margin_left = 932.0
+margin_right = 1856.0
+margin_bottom = 37.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 1 )
+text = "Avoid angry letters"
+align = 1
+
+[node name="Box2" type="HBoxContainer" parent="Margin/VBox/VBox/Margin2/VBox" index="1"]
+margin_top = 53.0
+margin_right = 1856.0
+margin_bottom = 223.0
+size_flags_horizontal = 3
+custom_constants/separation = 8
+
+[node name="TextureRect1" type="TextureRect" parent="Margin/VBox/VBox/Margin2/VBox/Box2" index="0"]
+margin_left = 312.0
+margin_right = 612.0
+margin_bottom = 170.0
+size_flags_horizontal = 6
+size_flags_stretch_ratio = 2.0
+texture = ExtResource( 6 )
+
+[node name="TextureRect2" type="TextureRect" parent="Margin/VBox/VBox/Margin2/VBox/Box2" index="1"]
+margin_left = 1244.0
+margin_right = 1544.0
+margin_bottom = 170.0
+size_flags_horizontal = 6
+size_flags_stretch_ratio = 2.0
+texture = ExtResource( 4 )
+
+[node name="BackButton" type="Button" parent="Margin/VBox" index="2"]
+margin_left = 854.0
+margin_top = 953.0
+margin_right = 1002.0
+margin_bottom = 1016.0
+size_flags_horizontal = 4
+size_flags_vertical = 10
+text = "Back"
+script = ExtResource( 5 )

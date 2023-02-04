@@ -1,0 +1,22 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://src/ui/lib/UIController.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/ui/PauseScreen.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/ui/PauseController.gd" type="Script" id=3]
+[ext_resource path="res://assets/theme/ui_dark_transparent_stylebox.tres" type="StyleBox" id=4]
+[ext_resource path="res://src/ui/lib/UIControllerAudio.tscn" type="PackedScene" id=5]
+
+[node name="PauseController" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+
+[node name="UIControllerAudio" parent="." index="1" instance=ExtResource( 5 )]
+
+[node name="Background" type="Panel" parent="." index="2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PauseScreen" parent="." index="3" instance=ExtResource( 2 )]

@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://src/AttackEffect.gd" type="Script" id=1]
+[ext_resource path="res://src/shaders/attack.shader" type="Shader" id=2]
+[ext_resource path="res://assets/images/attack.png" type="Texture" id=3]
+
+[sub_resource type="ShaderMaterial" id=1]
+resource_local_to_scene = true
+shader = ExtResource( 2 )
+shader_param/progress = 0.0
+shader_param/ring_width = 0.5
+
+[node name="AttackEffect" type="Node2D"]
+script = ExtResource( 1 )
+progress = 1.0
+
+[node name="TextureRect" type="TextureRect" parent="."]
+material = SubResource( 1 )
+margin_left = -160.0
+margin_top = -160.0
+margin_right = 160.0
+margin_bottom = 160.0
+rect_min_size = Vector2( 320, 320 )
+texture = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tween" type="Tween" parent="."]
