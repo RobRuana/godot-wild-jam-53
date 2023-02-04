@@ -1,3 +1,4 @@
+tool
 class_name Glass
 extends Node2D
 

@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Leaf.gd" type="Script" id=1]
+[ext_resource path="res://src/Leaf.gd" type="Script" id=1]
 [ext_resource path="res://assets/images/leaf.png" type="Texture" id=2]
 
 [sub_resource type="Gradient" id=1]
@@ -17,12 +17,12 @@ script = ExtResource( 1 )
 color_gradient = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( -3, -24 )
+position = Vector2( 24, 3 )
 texture = ExtResource( 2 )
 
-[node name="MoistureSensor" type="Area2D" parent="."]
-position = Vector2( -2, -21 )
+[node name="WaterSensor" type="Area2D" parent="."]
+position = Vector2( 20, 3 )
 collision_layer = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MoistureSensor"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WaterSensor"]
 shape = SubResource( 2 )

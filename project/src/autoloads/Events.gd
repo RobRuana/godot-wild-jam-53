@@ -1,6 +1,10 @@
 extends Node
 
 
+signal onscreen(entity)
+signal offscreen(entity)
+
+
 signal player_health_changed(player, value, old_value)
 signal player_zoom_changed(player, value, old_value)
 signal player_zoom_recovery(player, value)

@@ -33,6 +33,10 @@ func ease_out_mix(f1: float, f2: float, n: float) -> float:
 	return lerp(f1, f2, ease_out(n))
 
 
+func pow_ease_in(n: float, exponent: float) -> float:
+	return pow(n, exponent)
+
+
 func closest_equivalent_angle(from: float, to: float) -> float:
 	var delta: float = to - from
 	if delta >= PI:
@@ -113,3 +117,60 @@ func segment_intersects_rect(from: Vector2, to: Vector2, rect: Rect2):
 		if intersection:
 			return intersection
 	return null
+
+
+# ========================================================
+# Random functions
+# ========================================================
+
+func random_direction() -> Vector2:
+	var t: float = randf() * TAU
+	return Vector2(cos(t), sin(t))
+
+
+func random_turn_angle(max_angle: float, pow_easing: float = 1.0) -> float:
+	var turn_strength: float = randf()
+	if (pow_easing != 1.0):
+		turn_strength = pow_ease_in(turn_strength, pow_easing)
+	var turn_direction: float = random_sign()
+	return turn_direction * turn_strength * max_angle
+
+
+func random_point_in_circle(radius_max: float, radius_min: float = 0.0) -> Vector2:
+	var r2_max: float = radius_max * radius_max
+	var r2_min: float = radius_min * radius_min
+	var r: float = sqrt(randf() * (r2_max - r2_min) + r2_min)
+	var t: float = randf() * TAU
+	return Vector2(r * cos(t), r * sin(t))
+
+
+func random_bit() -> int:
+	return int(randi() % 2)
+
+
+func random_bool() -> bool:
+	return randi() % 2 == 0
+
+
+func random_sign() -> float:
+	return -1.0 if randi() % 2 == 0 else 1.0
+
+
+# ========================================================
+# Transform functions
+# ========================================================
+
+func is_flip_h(t: Transform2D) -> bool:
+	# Possibly faster, potentially less acurate
+	if (abs(t.y.x) < abs(t.y.y)):
+		return (sign(t.x.x) * sign(t.y.y)) < 0.0
+	else:
+		return (sign(t.x.y) * sign(t.y.x)) > 0.0
+
+
+func flip_h(t: Transform2D, flip: bool) -> Transform2D:
+	# Could potentially assign negative zero (-0) to an x component
+	var flip_sign: float = -1.0 if flip else 1.0
+	t.x.x = abs(t.x.x) * sign(t.y.y) * flip_sign
+	t.x.y = abs(t.x.y) * sign(t.y.x) * -flip_sign
+	return t
