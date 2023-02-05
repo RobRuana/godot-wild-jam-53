@@ -1,130 +1,14 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://src/Game.gd" type="Script" id=1]
 [ext_resource path="res://src/Plant.tscn" type="PackedScene" id=2]
-[ext_resource path="res://src/LetterContainer.tscn" type="PackedScene" id=3]
-[ext_resource path="res://assets/images/impact/under_control.png" type="Texture" id=4]
 [ext_resource path="res://src/Glass.tscn" type="PackedScene" id=5]
 [ext_resource path="res://src/HUD.tscn" type="PackedScene" id=9]
 [ext_resource path="res://src/utils/Fader.gd" type="Script" id=11]
-[ext_resource path="res://assets/images/impact/control.png" type="Texture" id=19]
-[ext_resource path="res://assets/images/impact/out.png" type="Texture" id=20]
-[ext_resource path="res://assets/images/impact/of.png" type="Texture" id=21]
-[ext_resource path="res://assets/theme/ui_theme.tres" type="Theme" id=24]
 
 [sub_resource type="Animation" id=1]
 resource_name = "death"
 length = 6.5
-tracks/0/type = "value"
-tracks/0/path = NodePath("ScreenLayer/DeathScreen:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("ScreenLayer/DeathScreen:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("ScreenLayer/DeathScreen/TitleContainer/out:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 1.3 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ false, true ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("ScreenLayer/DeathScreen/TitleContainer/of:visible")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0, 1.9 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ false, true ]
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath("ScreenLayer/DeathScreen/TitleContainer/control:visible")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"times": PoolRealArray( 0, 2.5 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ false, true ]
-}
-tracks/5/type = "value"
-tracks/5/path = NodePath("ScreenLayer/DeathScreen/Buttons/RetryButton:disabled")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/keys = {
-"times": PoolRealArray( 0, 4.4 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ true, false ]
-}
-tracks/6/type = "value"
-tracks/6/path = NodePath("ScreenLayer/DeathScreen/Buttons:modulate")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/keys = {
-"times": PoolRealArray( 0, 4.4, 6.4 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
-}
-tracks/7/type = "method"
-tracks/7/path = NodePath("ScreenLayer/DeathScreen/Buttons/RetryButton")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/keys = {
-"times": PoolRealArray( 4.4 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [  ],
-"method": "grab_focus"
-} ]
-}
-tracks/8/type = "value"
-tracks/8/path = NodePath("ScreenLayer/DeathScreen/LetterContainer:modulate")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/keys = {
-"times": PoolRealArray( 0, 3.4, 5.4 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
-}
 
 [sub_resource type="Animation" id=2]
 length = 0.001
@@ -183,36 +67,12 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("ScreenLayer/DeathScreen:visible")
+tracks/1/path = NodePath(".:state")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ false ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("ScreenLayer/WinScreen:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ false ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath(".:state")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
@@ -222,114 +82,14 @@ tracks/3/keys = {
 [sub_resource type="Animation" id=5]
 resource_name = "win"
 length = 6.5
-tracks/0/type = "value"
-tracks/0/path = NodePath("ScreenLayer/WinScreen:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("ScreenLayer/WinScreen:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("ScreenLayer/WinScreen/Buttons/NextLevelButton:disabled")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 1.02 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ true, false ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("ScreenLayer/WinScreen/Buttons:modulate")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0, 1.02, 2.02 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
-}
-tracks/4/type = "method"
-tracks/4/path = NodePath("ScreenLayer/WinScreen/Buttons/NextLevelButton")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"times": PoolRealArray( 1.02 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [  ],
-"method": "grab_focus"
-} ]
-}
-tracks/5/type = "value"
-tracks/5/path = NodePath("ScreenLayer/WinScreen/TitleContainer/controlled:visible")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/keys = {
-"times": PoolRealArray( 0, 0.3 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ false, true ]
-}
-tracks/6/type = "value"
-tracks/6/path = NodePath("ScreenLayer/WinScreen/TitleContainer/controlled:modulate")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/keys = {
-"times": PoolRealArray( -0.02, 0.3, 1.5 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Color( 0, 0.8, 0, 0 ), Color( 0, 0.8, 0, 0 ), Color( 0, 0.8, 0, 1 ) ]
-}
-
-[sub_resource type="StyleBoxFlat" id=7]
-bg_color = Color( 1, 1, 1, 1 )
-
-[sub_resource type="InputEventAction" id=8]
-action = "ui_accept"
-
-[sub_resource type="ShortCut" id=9]
-shortcut = SubResource( 8 )
-
-[sub_resource type="StyleBoxFlat" id=10]
-bg_color = Color( 1, 1, 1, 1 )
-
-[sub_resource type="InputEventAction" id=11]
-action = "ui_accept"
-
-[sub_resource type="ShortCut" id=12]
-shortcut = SubResource( 11 )
 
 [node name="Game" type="Node2D"]
 pause_mode = 2
 script = ExtResource( 1 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 960, 540 )
+current = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/death = SubResource( 1 )
@@ -352,128 +112,3 @@ position = Vector2( 967, 1077 )
 layer = 40
 
 [node name="HUD" parent="HUDLayer" instance=ExtResource( 9 )]
-
-[node name="ScreenLayer" type="CanvasLayer" parent="."]
-layer = 80
-
-[node name="DeathScreen" type="MarginContainer" parent="ScreenLayer"]
-modulate = Color( 1, 1, 1, 0 )
-margin_right = 1920.0
-margin_bottom = 1080.0
-rect_min_size = Vector2( 1920, 1080 )
-
-[node name="Background" type="Panel" parent="ScreenLayer/DeathScreen"]
-modulate = Color( 0, 0, 0, 1 )
-margin_right = 1920.0
-margin_bottom = 1080.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_styles/panel = SubResource( 7 )
-
-[node name="TitleContainer" type="Node2D" parent="ScreenLayer/DeathScreen"]
-position = Vector2( 960, 336 )
-
-[node name="out" type="Sprite" parent="ScreenLayer/DeathScreen/TitleContainer"]
-visible = false
-modulate = Color( 1, 0, 0, 1 )
-position = Vector2( -332, 0 )
-texture = ExtResource( 20 )
-
-[node name="of" type="Sprite" parent="ScreenLayer/DeathScreen/TitleContainer"]
-visible = false
-modulate = Color( 1, 0, 0, 1 )
-position = Vector2( -124, 0 )
-texture = ExtResource( 21 )
-
-[node name="control" type="Sprite" parent="ScreenLayer/DeathScreen/TitleContainer"]
-visible = false
-modulate = Color( 1, 0, 0, 1 )
-position = Vector2( 212, 0 )
-texture = ExtResource( 19 )
-
-[node name="LetterContainer" parent="ScreenLayer/DeathScreen" instance=ExtResource( 3 )]
-modulate = Color( 1, 1, 1, 0 )
-position = Vector2( 960, 496 )
-is_static = true
-
-[node name="Buttons" type="VBoxContainer" parent="ScreenLayer/DeathScreen"]
-modulate = Color( 1, 1, 1, 0 )
-margin_left = 871.0
-margin_right = 1048.0
-margin_bottom = 1080.0
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Spacer" type="Control" parent="ScreenLayer/DeathScreen/Buttons"]
-margin_right = 177.0
-margin_bottom = 643.0
-size_flags_vertical = 3
-size_flags_stretch_ratio = 1.5
-
-[node name="RetryButton" type="Button" parent="ScreenLayer/DeathScreen/Buttons"]
-margin_top = 651.0
-margin_right = 177.0
-margin_bottom = 714.0
-size_flags_horizontal = 4
-size_flags_vertical = 2
-theme = ExtResource( 24 )
-disabled = true
-shortcut_in_tooltip = false
-shortcut = SubResource( 9 )
-text = "Retry"
-flat = true
-
-[node name="WinScreen" type="MarginContainer" parent="ScreenLayer"]
-modulate = Color( 1, 1, 1, 0 )
-margin_right = 1920.0
-margin_bottom = 1080.0
-rect_min_size = Vector2( 1920, 1080 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Background" type="Panel" parent="ScreenLayer/WinScreen"]
-modulate = Color( 0, 0, 0, 0.815686 )
-margin_right = 1920.0
-margin_bottom = 1080.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_styles/panel = SubResource( 10 )
-
-[node name="TitleContainer" type="Node2D" parent="ScreenLayer/WinScreen"]
-position = Vector2( 960, 336 )
-
-[node name="controlled" type="Sprite" parent="ScreenLayer/WinScreen/TitleContainer"]
-visible = false
-modulate = Color( 0, 0.8, 0, 0 )
-texture = ExtResource( 4 )
-
-[node name="Buttons" type="VBoxContainer" parent="ScreenLayer/WinScreen"]
-modulate = Color( 1, 1, 1, 0 )
-margin_left = 799.0
-margin_right = 1121.0
-margin_bottom = 1080.0
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Spacer" type="Control" parent="ScreenLayer/WinScreen/Buttons"]
-margin_right = 322.0
-margin_bottom = 643.0
-size_flags_vertical = 3
-size_flags_stretch_ratio = 1.5
-
-[node name="NextLevelButton" type="Button" parent="ScreenLayer/WinScreen/Buttons"]
-margin_top = 651.0
-margin_right = 322.0
-margin_bottom = 714.0
-size_flags_horizontal = 4
-size_flags_vertical = 2
-theme = ExtResource( 24 )
-disabled = true
-shortcut_in_tooltip = false
-shortcut = SubResource( 12 )
-text = "Next Level"
-flat = true
-
-[connection signal="button_up" from="ScreenLayer/DeathScreen/Buttons/RetryButton" to="." method="_on_retry_button_up"]
-[connection signal="button_up" from="ScreenLayer/WinScreen/Buttons/NextLevelButton" to="." method="_on_next_level_button_up"]

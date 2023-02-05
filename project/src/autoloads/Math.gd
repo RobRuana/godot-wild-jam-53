@@ -1,3 +1,4 @@
+tool
 extends Node
 
 
@@ -123,17 +124,17 @@ func segment_intersects_rect(from: Vector2, to: Vector2, rect: Rect2):
 # Random functions
 # ========================================================
 
+func random_bit() -> int:
+	return int(randi() % 2)
+
+
+func random_bool() -> bool:
+	return randi() % 2 == 0
+
+
 func random_direction() -> Vector2:
 	var t: float = randf() * TAU
 	return Vector2(cos(t), sin(t))
-
-
-func random_turn_angle(max_angle: float, pow_easing: float = 1.0) -> float:
-	var turn_strength: float = randf()
-	if (pow_easing != 1.0):
-		turn_strength = pow_ease_in(turn_strength, pow_easing)
-	var turn_direction: float = random_sign()
-	return turn_direction * turn_strength * max_angle
 
 
 func random_point_in_circle(radius_max: float, radius_min: float = 0.0) -> Vector2:
@@ -144,16 +145,70 @@ func random_point_in_circle(radius_max: float, radius_min: float = 0.0) -> Vecto
 	return Vector2(r * cos(t), r * sin(t))
 
 
-func random_bit() -> int:
-	return int(randi() % 2)
-
-
-func random_bool() -> bool:
-	return randi() % 2 == 0
-
-
 func random_sign() -> float:
 	return -1.0 if randi() % 2 == 0 else 1.0
+
+
+func random_turn_angle(max_angle: float, pow_easing: float = 1.0) -> float:
+	var turn_strength: float = randf()
+	if (pow_easing != 1.0):
+		turn_strength = pow_ease_in(turn_strength, pow_easing)
+	var turn_direction: float = random_sign()
+	return turn_direction * turn_strength * max_angle
+
+
+func random_weighted_between(lower: float, upper: float, pow_easing: float = 1.0) -> float:
+	var center: float = (lower * 0.5) + (upper * 0.5)
+	var range_extent: float = abs(upper - center)
+	return random_weighted_range(center, range_extent, pow_easing)
+
+
+func random_weighted_range(center: float, range_extent: float, pow_easing: float = 1.0) -> float:
+	if is_zero_approx(range_extent):
+		return center
+	return center + (random_weighted_strength(pow_easing) * range_extent)
+
+
+func random_weighted_strength(pow_easing: float = 1.0) -> float:
+	# Returns a weighted random value from -1.0 to 1.0
+	var rand: float = randf() - 0.5
+	var direction: float = sign(rand)
+	var strength: float = abs(rand) * 2.0
+	if pow_easing != 1.0:
+		strength = pow_ease_in(strength, pow_easing)
+	return direction * strength
+
+
+# ========================================================
+# Polygon functions
+# ========================================================
+
+func angle_to_vector(angle: float) -> Vector2:
+	return Vector2(cos(angle), sin(angle))
+
+
+func make_arc_polygon(radius: float, start_angle: float, end_angle: float, center: Vector2, round_precision: int) -> PoolVector2Array:
+	var polygon: PoolVector2Array = PoolVector2Array();
+	if round_precision > 1:
+		for i in round_precision:
+			# Do not use lerp_angle() because it always chooses the shortest angle
+			# float angle = lerp_angle(start_angle, end_angle, (float)i / (float)(round_precision - 1))
+			var angle: float = lerp(start_angle, end_angle, float(i) / float(round_precision - 1))
+			polygon.append(center + angle_to_vector(angle) * radius)
+	else:
+		# Do not use lerp_angle() because it always chooses the shortest angle
+		# float angle = lerp_angle(start_angle, end_angle, (float)i / (float)(round_precision - 1))
+		var angle: float = lerp(start_angle, end_angle, 0.5)
+		polygon.append(center + angle_to_vector(angle) * radius)
+	return polygon
+
+
+func make_circle_polygon(radius: float, center: Vector2, round_precision: int) -> PoolVector2Array:
+	var polygon: PoolVector2Array = PoolVector2Array();
+	for i in round_precision:
+		var angle: float = lerp(-PI, PI, float(i) / float(round_precision))
+		polygon.append(center + angle_to_vector(angle) * radius)
+	return polygon
 
 
 # ========================================================

@@ -14,17 +14,20 @@ onready var trunk: Branch = $Trunk
 
 var nutrients: float = 100.0
 var moisture: float = 0.0
+var growth_rate: float = 100.0
 var evaporation_rate: float = 1.0
+var is_ready: bool = false
 
 
 func _ready() -> void:
-	var tween: SceneTreeTween = trunk.create_tween().set_parallel(true)
-	tween.tween_property(trunk, "length", 540.0, 10.0)
 	nutrients = initial_nutrients
+	is_ready = true
 
 
 func _physics_process(delta: float) -> void:
-	moisture -= evaporation_rate * delta
+	if is_ready:
+		moisture -= evaporation_rate * delta
+		trunk.grow(growth_rate * delta)
 
 
 func add_moisture(value: float):

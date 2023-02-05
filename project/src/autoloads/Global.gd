@@ -1,7 +1,11 @@
 extends Node2D
 
 
-signal queue_freed
+signal queue_freed()
+
+
+const BRANCH_SCENE: PackedScene = preload("res://src/Branch.tscn")
+const LEAF_SCENE: PackedScene = preload("res://src/Leaf.tscn")
 
 
 onready var screen_size: = get_viewport_rect().size
