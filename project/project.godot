@@ -432,6 +432,7 @@ pause={
 [layer_names]
 
 2d_physics/layer_1="water"
+2d_physics/layer_2="leaf"
 
 [mono]
 

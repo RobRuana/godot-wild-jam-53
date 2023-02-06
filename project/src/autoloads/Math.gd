@@ -38,6 +38,46 @@ func pow_ease_in(n: float, exponent: float) -> float:
 	return pow(n, exponent)
 
 
+func get_acute_angle(v1: Vector2, v2: Vector2) -> float:
+	var angle: float = v1.angle_to(v2)
+	var abs_angle: float = abs(angle)
+	if abs_angle == 0.0:
+		return 0.0
+	if abs_angle <= HALF_PI:
+		return angle
+	return -sign(angle) * (PI - abs_angle)
+
+
+func get_obtuse_angle(v1: Vector2, v2: Vector2) -> float:
+	var angle: float = v1.angle_to(v2)
+	var abs_angle: float = abs(angle)
+	if abs_angle == 0.0:
+		return PI
+	if abs_angle > HALF_PI:
+		return angle
+	return -sign(angle) * (PI - abs_angle)
+
+
+func get_inside_angle(v1: Vector2, v2: Vector2) -> float:
+	var angle: float = v1.angle_to(v2)
+	var abs_angle: float = abs(angle)
+	if abs_angle == 0.0:
+		return 0.0
+	if abs_angle <= PI:
+		return angle
+	return -sign(angle) * (TWO_PI - abs_angle)
+
+
+func get_outside_angle(v1: Vector2, v2: Vector2) -> float:
+	var angle: float = v1.angle_to(v2)
+	var abs_angle: float = abs(angle)
+	if abs_angle == 0.0:
+		return TWO_PI
+	if abs_angle > PI:
+		return angle
+	return -sign(angle) * (TWO_PI - abs_angle)
+
+
 func closest_equivalent_angle(from: float, to: float) -> float:
 	var delta: float = to - from
 	if delta >= PI:
@@ -109,7 +149,6 @@ func rect_segments(rect: Rect2) -> Array:
 		[Vector2(rect.position.x, rect.end.y), rect.position],
 	]
 	return segments
-
 
 
 func segment_intersects_rect(from: Vector2, to: Vector2, rect: Rect2):

@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://src/Leaf.gd" type="Script" id=1]
 
@@ -10,6 +10,9 @@ colors = PoolColorArray( 0, 0.733333, 0, 1, 0.880859, 0.854582, 0.208172, 1, 0.4
 [sub_resource type="Curve" id=3]
 min_value = 0.5
 _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.5 ), -1.69941, 0.0, 0, 0 ]
+
+[sub_resource type="ConvexPolygonShape2D" id=4]
+points = PoolVector2Array( -40, -2.93915e-15, -39.2314, -4.68217, -36.9552, -9.1844, -33.2588, -13.3337, -28.2843, -16.9706, -22.2228, -19.9553, -15.3073, -22.1731, -7.80361, -23.5388, 2.44929e-15, -24, 7.80361, -23.5388, 15.3073, -22.1731, 22.2228, -19.9553, 28.2843, -16.9706, 33.2588, -13.3337, 36.9552, -9.1844, 39.2314, -4.68217, 40, 0, 39.2314, 4.68217, 36.9552, 9.1844, 33.2588, 13.3337, 28.2843, 16.9706, 22.2228, 19.9553, 15.3073, 22.1731, 7.80361, 23.5388, 2.44929e-15, 24, -7.80361, 23.5388, -15.3073, 22.1731, -22.2228, 19.9553, -28.2843, 16.9706, -33.2588, 13.3337, -36.9552, 9.1844, -39.2314, 4.68217, -40, -2.93915e-15 )
 
 [node name="Leaf" type="Node2D"]
 modulate = Color( 0, 0.733333, 0, 1 )
@@ -33,7 +36,9 @@ default_color = Color( 0.501961, 0.501961, 0.501961, 1 )
 
 [node name="WaterSensor" type="Area2D" parent="."]
 unique_name_in_owner = true
+collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WaterSensor"]
 unique_name_in_owner = true
 position = Vector2( 60, 0 )
+shape = SubResource( 4 )

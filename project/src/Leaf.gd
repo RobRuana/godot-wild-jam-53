@@ -43,7 +43,7 @@ func _ready() -> void:
 
 	set_health(health)
 
-	scale = Vector2(0.1, 0.1)
+	scale = Vector2(0.01, 0.01)
 
 	if not water_sensor.is_connected("area_entered", self, "_on_water_sensor_entered"):
 		water_sensor.connect("area_entered", self, "_on_water_sensor_entered")
@@ -58,7 +58,7 @@ func _on_water_sensor_entered(body: Node2D):
 
 
 func _on_water_sensor_input_event(viewport: Node, input_event: InputEvent, shape_idx: int):
-	if (input_event is InputEventMouseButton && input_event.pressed):
+	if (input_event is InputEventMouseButton and input_event.pressed):
 		add_water(1.0)
 
 
