@@ -27,7 +27,7 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if is_ready:
 		moisture -= evaporation_rate * delta
-		trunk.grow(growth_rate * delta)
+		#trunk.grow(growth_rate * delta)
 
 
 func add_moisture(value: float):
