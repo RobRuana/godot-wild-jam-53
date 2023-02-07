@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://src/Leaf.gd" type="Script" id=1]
 
@@ -7,38 +7,51 @@ interpolation_mode = 2
 offsets = PoolRealArray( 0, 0.489305, 1 )
 colors = PoolColorArray( 0, 0.733333, 0, 1, 0.880859, 0.854582, 0.208172, 1, 0.496094, 0.413734, 0.248047, 1 )
 
-[sub_resource type="Curve" id=3]
-min_value = 0.5
-_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.5 ), -1.69941, 0.0, 0, 0 ]
-
 [sub_resource type="ConvexPolygonShape2D" id=4]
-points = PoolVector2Array( -40, -2.93915e-15, -39.2314, -4.68217, -36.9552, -9.1844, -33.2588, -13.3337, -28.2843, -16.9706, -22.2228, -19.9553, -15.3073, -22.1731, -7.80361, -23.5388, 2.44929e-15, -24, 7.80361, -23.5388, 15.3073, -22.1731, 22.2228, -19.9553, 28.2843, -16.9706, 33.2588, -13.3337, 36.9552, -9.1844, 39.2314, -4.68217, 40, 0, 39.2314, 4.68217, 36.9552, 9.1844, 33.2588, 13.3337, 28.2843, 16.9706, 22.2228, 19.9553, 15.3073, 22.1731, 7.80361, 23.5388, 2.44929e-15, 24, -7.80361, 23.5388, -15.3073, 22.1731, -22.2228, 19.9553, -28.2843, 16.9706, -33.2588, 13.3337, -36.9552, 9.1844, -39.2314, 4.68217, -40, -2.93915e-15 )
+points = PoolVector2Array( -32.9634, -2.03324, -31.5844, -6.01467, -28.8843, -9.74449, -24.9759, -13.0667, -20.0226, -15.8423, -14.2318, -17.9552, -7.84568, -19.3169, -1.13134, -19.8707, 5.63033, -19.5932, 12.1565, -18.496, 18.1741, -16.6252, 23.4315, -14.0589, 46.8629, 0, 23.4315, 14.0589, 18.1741, 16.6252, 12.1565, 18.496, 5.63033, 19.5932, -1.13134, 19.8707, -7.84568, 19.3169, -14.2318, 17.9552, -20.0226, 15.8423, -24.9759, 13.0667, -28.8843, 9.74449, -31.5844, 6.01467, -32.9634, 2.03324, -32.9634, -2.03324 )
+
+[sub_resource type="Curve" id=3]
+min_value = 0.1
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.1 ), -2.81554, 0.0, 0, 0 ]
+
+[sub_resource type="Gradient" id=5]
+resource_local_to_scene = true
+interpolation_mode = 2
+colors = PoolColorArray( 0, 0.752941, 0, 1, 0.000713215, 0.376471, 0, 1 )
 
 [node name="Leaf" type="Node2D"]
-modulate = Color( 0, 0.733333, 0, 1 )
-scale = Vector2( 0.1, 0.1 )
 z_index = 1
 script = ExtResource( 1 )
 color_gradient = SubResource( 1 )
 
-[node name="Polygon2D" type="Polygon2D" parent="."]
+[node name="BranchOffset" type="Node2D" parent="."]
 unique_name_in_owner = true
-position = Vector2( 60, 0 )
-antialiased = true
-polygon = PoolVector2Array( -40, -2.93915e-15, -39.2314, -4.68217, -36.9552, -9.1844, -33.2588, -13.3337, -28.2843, -16.9706, -22.2228, -19.9553, -15.3073, -22.1731, -7.80361, -23.5388, 2.44929e-15, -24, 7.80361, -23.5388, 15.3073, -22.1731, 22.2228, -19.9553, 28.2843, -16.9706, 33.2588, -13.3337, 36.9552, -9.1844, 39.2314, -4.68217, 40, 0, 39.2314, 4.68217, 36.9552, 9.1844, 33.2588, 13.3337, 28.2843, 16.9706, 22.2228, 19.9553, 15.3073, 22.1731, 7.80361, 23.5388, 2.44929e-15, 24, -7.80361, 23.5388, -15.3073, 22.1731, -22.2228, 19.9553, -28.2843, 16.9706, -33.2588, 13.3337, -36.9552, 9.1844, -39.2314, 4.68217 )
+position = Vector2( 1, 0 )
 
-[node name="Line2D" type="Line2D" parent="."]
+[node name="Lobes" type="Node2D" parent="BranchOffset"]
+unique_name_in_owner = true
+
+[node name="Polygon2D" type="Polygon2D" parent="BranchOffset/Lobes"]
+unique_name_in_owner = true
+position = Vector2( 53.0502, 0 )
+antialiased = true
+polygon = PoolVector2Array( 23.4315, 14.0589, 18.1741, 16.6252, 12.1565, 18.496, 5.63033, 19.5932, -1.13134, 19.8707, -7.84568, 19.3169, -14.2318, 17.9552, -20.0226, 15.8423, -24.9759, 13.0667, -28.8843, 9.74449, -31.5844, 6.01467, -32.9634, 2.03324, -32.9634, -2.03324, -31.5844, -6.01467, -28.8843, -9.74449, -24.9759, -13.0667, -20.0226, -15.8423, -14.2318, -17.9552, -7.84568, -19.3169, -1.13134, -19.8707, 5.63033, -19.5932, 12.1565, -18.496, 18.1741, -16.6252, 23.4315, -14.0589, 46.8629, 0 )
+
+[node name="WaterSensor" type="Area2D" parent="BranchOffset/Lobes"]
+unique_name_in_owner = true
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BranchOffset/Lobes/WaterSensor"]
+unique_name_in_owner = true
+position = Vector2( 53.0502, 0 )
+shape = SubResource( 4 )
+
+[node name="Stem" type="Line2D" parent="BranchOffset"]
 unique_name_in_owner = true
 points = PoolVector2Array( 0, 0, 100, 0 )
 width = 4.0
 width_curve = SubResource( 3 )
-default_color = Color( 0.501961, 0.501961, 0.501961, 1 )
-
-[node name="WaterSensor" type="Area2D" parent="."]
-unique_name_in_owner = true
-collision_layer = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WaterSensor"]
-unique_name_in_owner = true
-position = Vector2( 60, 0 )
-shape = SubResource( 4 )
+default_color = Color( 1, 1, 1, 1 )
+gradient = SubResource( 5 )
+begin_cap_mode = 2
+antialiased = true

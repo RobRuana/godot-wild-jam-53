@@ -24,19 +24,42 @@ export var segment_angle_range: float = 5.0
 export var segment_angle_easing: float = 2.0
 export var segment_angle_attenuation: float = 1.05
 
-
 onready var leaves: Node2D = $Leaves
 onready var branches: Node2D = $Branches
 onready var line: Line2D = $Line2D
 
-
+var parent_segment_index: int = 0
 var current_segment_index: int = 0
 var current_segment_length: float = 0.0
 var current_segment_direction: Vector2 = Vector2.UP
 var current_segment_length_target: float = 0.0
 
+#var segment_lengths: Dictionary = {}
+#var cumulative_segment_lengths: Dictionary = {}
+
 var length: float = 0.0
+var bbox: Rect2
 var is_ready: bool = false
+
+
+func set_origin_color(color: Color):
+	line.gradient.set_color(0, color)
+
+
+func set_tip_color(color: Color):
+	line.gradient.set_color(1, color)
+
+
+func get_origin_color() -> Color:
+	return get_color_at_offset(0.0)
+
+
+func get_tip_color() -> Color:
+	return get_color_at_offset(1.0)
+
+
+func get_color_at_offset(offset: float) -> Color:
+	return line.gradient.interpolate(offset)
 
 
 func get_origin_width() -> float:
@@ -48,71 +71,13 @@ func get_tip_width() -> float:
 
 
 func get_width_at_offset(offset: float) -> float:
-	return line.width * line.width_curve.interpolate(offset)
+	return line.width * line.width_curve.interpolate_baked(offset)
 
 
 func _ready() -> void:
 	while line.get_point_count() < 2:
 		line.add_point(Vector2.ZERO)
 	is_ready = true
-
-
-func bind_leaf(leaf: Leaf):
-	if not leaf.is_connected("water_received", self, "_on_leaf_water_received"):
-		leaf.connect("water_received", self, "_on_leaf_water_received")
-	if not leaf.is_connected("tree_exiting", self, "_on_leaf_tree_exiting"):
-		leaf.connect("tree_exiting", self, "_on_leaf_tree_exiting", [leaf])
-
-
-func unbind_leaf(leaf: Leaf):
-	if leaf.is_connected("water_received", self, "_on_leaf_water_received"):
-		leaf.disconnect("water_received", self, "_on_leaf_water_received")
-	if leaf.is_connected("tree_exiting", self, "_on_leaf_tree_exiting"):
-		leaf.disconnect("tree_exiting", self, "_on_leaf_tree_exiting")
-
-
-func bind_branch(branch): # Branch
-	if not branch.is_connected("tree_exiting", self, "_on_branch_tree_exiting"):
-		branch.connect("tree_exiting", self, "_on_branch_tree_exiting", [branch])
-
-
-func unbind_branch(branch): # Branch
-	if branch.is_connected("tree_exiting", self, "_on_branch_tree_exiting"):
-		branch.disconnect("tree_exiting", self, "_on_branch_tree_exiting")
-
-
-func _on_leaf_water_received(leaf: Leaf, amount: float):
-	pass
-
-
-func _on_leaf_tree_exiting(leaf: Leaf):
-	unbind_leaf(leaf)
-
-
-func _on_branch_tree_exiting(branch): # Branch
-	unbind_branch(branch)
-
-
-func create_branch():
-	var branch = Global.BRANCH_SCENE.instance() # Branch
-	branch.aspect_ratio = aspect_ratio
-	branch.min_width = min_width
-	branch.branchiness = branchiness
-	branch.leafiness = leafiness
-	branch.segment_length_avg = segment_length_avg * segment_length_attenuation
-	branch.segment_length_range = segment_length_range * segment_length_attenuation
-	branch.segment_length_easing = segment_length_easing
-	branch.segment_length_attenuation = segment_length_attenuation
-	branch.segment_angle_avg = segment_angle_avg * segment_angle_attenuation
-	branch.segment_angle_range = segment_angle_range * segment_angle_attenuation
-	branch.segment_angle_easing = segment_angle_easing
-	branch.segment_angle_attenuation = segment_angle_attenuation
-	return branch
-
-
-func create_leaf():
-	var leaf: Leaf = Global.LEAF_SCENE.instance()
-	return leaf
 
 
 func get_outside_bisection(segment_index: int, weight: float = 0.5):
@@ -127,25 +92,37 @@ func get_outside_bisection(segment_index: int, weight: float = 0.5):
 
 
 func add_leaf(segment_index: int):
-	var leaf: Leaf = create_leaf()
+	var leaf: Leaf = Global.LEAF_SCENE.instance()
+	leaf.parent_segment_index = segment_index
 	leaf.position = line.get_point_position(segment_index)
 	leaf.rotation = get_outside_bisection(segment_index, 0.5)
 	leaves.add_child(leaf)
-	bind_leaf(leaf)
 	emit_signal("leaf_added", self, leaf)
 
 
 func add_branch(segment_index: int):
-	var branch = create_branch()
+	var branch = Global.BRANCH_SCENE.instance() # Branch
+	branch.parent_segment_index = segment_index
+	branch.aspect_ratio = aspect_ratio
+	branch.min_width = min_width
+	branch.branchiness = branchiness
+	branch.leafiness = leafiness
+	branch.segment_length_avg = segment_length_avg * segment_length_attenuation
+	branch.segment_length_range = segment_length_range * segment_length_attenuation
+	branch.segment_length_easing = segment_length_easing
+	branch.segment_length_attenuation = segment_length_attenuation
+	branch.segment_angle_avg = segment_angle_avg * segment_angle_attenuation
+	branch.segment_angle_range = segment_angle_range * segment_angle_attenuation
+	branch.segment_angle_easing = segment_angle_easing
+	branch.segment_angle_attenuation = segment_angle_attenuation
 	branch.position = line.get_point_position(segment_index)
 	branches.add_child(branch)
-	bind_branch(branch)
 	emit_signal("branch_added", self, branch)
 
 
-func grow(amount: float):
+func grow(amount: float) -> Rect2:
 	if !is_ready:
-		return
+		return bbox
 
 	if current_segment_length_target <= 0.0:
 		current_segment_length_target = Math.random_weighted_range(segment_length_avg, segment_length_range, segment_length_easing)
@@ -154,10 +131,10 @@ func grow(amount: float):
 	var branch_amount: float = amount
 
 	for branch in branches.get_children():
+		var branch_color: Color = get_color_at_offset((float(branch.parent_segment_index) / float(current_segment_index + 1)))
 		branch.grow(branch_amount)
-
-	for leaf in leaves.get_children():
-		leaf.grow(branch_amount)
+		branch.set_origin_color(branch_color)
+		bbox = bbox.merge(branch.bbox)
 
 	var is_new_segment: bool = false
 	var new_segment_length: float = current_segment_length + branch_amount
@@ -188,8 +165,19 @@ func grow(amount: float):
 
 	line.width = max(length * aspect_ratio, min_width) if length > 0.0 else min_width
 
+	for leaf in leaves.get_children():
+		leaf.grow(branch_amount)
+		var leaf_offset: float = float(leaf.parent_segment_index) / float(current_segment_index + 1)
+		var branch_width: float = get_width_at_offset(leaf_offset)
+		var branch_color: Color = get_color_at_offset(leaf_offset)
+		leaf.set_branch_width(branch_width)
+		leaf.set_origin_color(branch_color)
+		bbox = bbox.merge(leaf.transform.xform(leaf.bbox))
+
 	if is_new_segment:
 		if randf() <= branchiness:
 			add_branch(current_segment_index)
 		elif randf() <= leafiness:
 			add_leaf(current_segment_index)
+
+	return bbox

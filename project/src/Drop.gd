@@ -21,14 +21,14 @@ func _ready():
 	velocity.y = 1
 	set_size(rand_range(2,5))
 	set_fall_factor(10)
-	
+
 func drop_dead():
 	emit_signal("drop_dead")
 	queue_free()
 
 func set_fall_factor(factor: float):
 	fall_factor = factor
-	
+
 func set_size(_size: float):
 	size = _size
 	update_scale()
@@ -42,7 +42,7 @@ func _process(delta):
 		position = mouse_pos
 	else:
 		pass
-		
+
 func _physics_process(delta):
 	# update the position of the drop over time
 	var collision = move_and_collide(velocity * delta * size * fall_factor)

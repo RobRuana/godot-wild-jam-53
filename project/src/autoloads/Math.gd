@@ -6,6 +6,7 @@ const TWO_PI: float = 2.0 * PI
 const THREE_QUARTER_PI: float = 0.75 * PI
 const HALF_PI: float = 0.5 * PI
 const QUARTER_PI: float = 0.25 * PI
+const SEVEN_QUARTER_PI: float = 1.75 * PI
 const SIXTH_PI: float = 0.1666666667 * PI
 const EIGHTH_PI: float = 0.125 * PI
 const SQRT_TWO: float = 1.4142135624
@@ -159,6 +160,26 @@ func segment_intersects_rect(from: Vector2, to: Vector2, rect: Rect2):
 	return null
 
 
+func bbox(array: PoolVector2Array) -> Rect2:
+	if array.size() <= 0:
+		return Rect2()
+
+	var max_x: float = array[0].x
+	var max_y: float = array[0].y
+	var min_x: float = array[0].x
+	var min_y: float = array[0].y
+	for v in array:
+		max_x = max(max_x, v.x)
+		max_y = max(max_y, v.y)
+		min_x = min(min_x, v.x)
+		min_y = min(min_y, v.y)
+
+	return Rect2(
+		Vector2(min_x, min_y),
+		Vector2(max_x - min_x, max_y - min_y)
+	)
+
+
 # ========================================================
 # Random functions
 # ========================================================
@@ -247,6 +268,13 @@ func make_circle_polygon(radius: float, center: Vector2, round_precision: int) -
 	for i in round_precision:
 		var angle: float = lerp(-PI, PI, float(i) / float(round_precision))
 		polygon.append(center + angle_to_vector(angle) * radius)
+	return polygon
+
+
+func make_leaf_polygon(length: float, center: Vector2, round_precision: int) -> PoolVector2Array:
+	var radius: float = length / (1.0 + SQRT_TWO)
+	var polygon: PoolVector2Array = make_arc_polygon(radius, QUARTER_PI, SEVEN_QUARTER_PI, center, round_precision)
+	polygon.append(Vector2(radius * SQRT_TWO, 0.0))
 	return polygon
 
 

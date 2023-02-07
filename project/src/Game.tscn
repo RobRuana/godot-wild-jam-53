@@ -52,6 +52,7 @@ pause_mode = 2
 script = ExtResource( 1 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
+unique_name_in_owner = true
 position = Vector2( 960, 540 )
 current = true
 
@@ -68,9 +69,11 @@ anims/win = SubResource( 5 )
 script = ExtResource( 11 )
 
 [node name="Glass" parent="." instance=ExtResource( 5 )]
+unique_name_in_owner = true
 
 [node name="Plant" parent="." instance=ExtResource( 2 )]
-position = Vector2( 967, 1077 )
+unique_name_in_owner = true
+position = Vector2( 960, 1080 )
 
 [node name="DropManager" type="Node2D" parent="."]
 script = ExtResource( 6 )
