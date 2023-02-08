@@ -29,7 +29,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/utils/Fader.gd"
 }, {
-"base": "Node2D",
+"base": "Control",
 "class": "Game",
 "language": "GDScript",
 "path": "res://src/Game.gd"
@@ -39,7 +39,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/ui/lib/GamepadScrollContainer.gd"
 }, {
-"base": "Node2D",
+"base": "TextureRect",
 "class": "Glass",
 "language": "GDScript",
 "path": "res://src/Glass.gd"

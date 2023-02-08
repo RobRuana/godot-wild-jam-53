@@ -9,7 +9,7 @@ else
     # FILES=`find . -type f -name "*.png"`
 
     # Only changed *.png files
-    FILES=(`git status --porcelain --untracked-files=all --no-renames | grep --invert-match '^\s\?D' | awk '{ print $2 }' | grep '\.png$'`)
+    FILES=(`git status --porcelain --untracked-files=all --no-renames | grep --invert-match '^\s\?D' | awk '{ print $2 }' | grep '\.png$\|\.jpg$'`)
 fi
 
 # Print image files

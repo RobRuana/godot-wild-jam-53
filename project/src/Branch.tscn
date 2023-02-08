@@ -13,6 +13,7 @@ colors = PoolColorArray( 0, 0.733333, 0, 1, 0, 1, 0, 1 )
 
 [node name="Branch" type="Node2D"]
 script = ExtResource( 1 )
+max_segments_attenuation = 1.05
 
 [node name="Line2D" type="Line2D" parent="."]
 points = PoolVector2Array( 0, 0, 0, 0 )
