@@ -33,7 +33,7 @@ func _ready():
 		onscreen_timer.autostart = false
 		add_child(onscreen_timer)
 
-	initialize(get_parent())
+	call_deferred("initialize", get_parent())
 
 
 func initialize(entity: Node2D):

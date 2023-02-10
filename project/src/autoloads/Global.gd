@@ -150,3 +150,15 @@ func time_scale(scale: float = 1.0, duration: float = 1.0, delay: float = 0.0):
 		Engine.time_scale = 1.0
 	else:
 		Engine.time_scale = reverted_scale
+
+
+func get_node_for_path(ancestor: Node, path: NodePath) -> Node:
+	if path.is_absolute():
+		return get_tree().root.get_node_or_null(path)
+	elif ancestor.has_node(path):
+		return ancestor.get_node(path)
+	elif ancestor.owner.has_node(path):
+		return ancestor.owner.get_node(path)
+	elif ancestor.get_parent().has_node(path):
+		return ancestor.get_parent().get_node(path)
+	return null

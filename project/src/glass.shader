@@ -27,6 +27,7 @@ shader_type canvas_item;
 
 uniform float fade_in_duration = 10.0;
 uniform float lightning: hint_range(-1.0, 1.0) = 0.0;
+uniform sampler2D background_texture;
 
 
 vec3 N13(float p) {
@@ -198,12 +199,12 @@ void fragment() {
 
 	vec2 custom_uv = (UV - 0.5) * (0.9 + zoom * 0.1) + 0.5;
 
-	float staticDrops = smoothstep(-0.5, 1.0, rainAmount) * 2.0;
-	float layer1 = smoothstep(0.25, 0.75, rainAmount);
-	float layer2 = smoothstep(0.0, 0.5, rainAmount);
-	// float staticDrops = 0.0;
-	// float layer1 = 0.0;
-	// float layer2 = 0.0;
+	// float staticDrops = smoothstep(-0.5, 1.0, rainAmount) * 2.0;
+	// float layer1 = smoothstep(0.25, 0.75, rainAmount);
+	// float layer2 = smoothstep(0.0, 0.5, rainAmount);
+	float staticDrops = 0.0;
+	float layer1 = 0.0;
+	float layer2 = 0.0;
 
 
 	vec2 c = Drops(uv, t, staticDrops, layer1, layer2);

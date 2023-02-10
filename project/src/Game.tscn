@@ -27,13 +27,12 @@ root_count = 2
 root_width = 0.0
 branchiness = 0.5
 leafiness = 1.0
-leaf_mature_length_avg = 300.0
-leaf_mature_length_range = 50.0
 leaf_mature_length_easing = 1.5
 leaf_lobe_aspect_ratio_avg = 0.4
 branch_angle_bias_avg = 0.1
 branch_min_width = 4.0
-segment_length_avg = 120.0
+segment_length_avg = 60.0
+segment_length_range = 10.0
 max_segments_range = 0.0
 max_segments_easing = 1.0
 

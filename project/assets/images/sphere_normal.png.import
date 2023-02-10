@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/background.jpg-d656ee7c3b4e3ad9f24b9850cd3d67b3.stex"
+path="res://.import/sphere_normal.png-57f969c6dcbf25d7125f7f72097a85de.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/background.jpg"
-dest_files=[ "res://.import/background.jpg-d656ee7c3b4e3ad9f24b9850cd3d67b3.stex" ]
+source_file="res://assets/images/sphere_normal.png"
+dest_files=[ "res://.import/sphere_normal.png-57f969c6dcbf25d7125f7f72097a85de.stex" ]
 
 [params]
 
@@ -19,12 +19,12 @@ compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
-flags/repeat=2
+flags/repeat=0
 flags/filter=true
-flags/mipmaps=true
-flags/anisotropic=true
+flags/mipmaps=false
+flags/anisotropic=false
 flags/srgb=2
-process/fix_alpha_border=false
+process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false

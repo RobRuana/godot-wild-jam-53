@@ -44,10 +44,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/ui/lib/GamepadScrollContainer.gd"
 }, {
-"base": "TextureRect",
+"base": "Control",
 "class": "Glass",
 "language": "GDScript",
 "path": "res://src/Glass.gd"
+}, {
+"base": "TextureRect",
+"class": "GlassShader",
+"language": "GDScript",
+"path": "res://src/GlassShader.gd"
 }, {
 "base": "Node2D",
 "class": "Goal",
@@ -149,6 +154,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/ui/lib/PushScreenButton.gd"
 }, {
+"base": "Node2D",
+"class": "RainDrop",
+"language": "GDScript",
+"path": "res://src/RainDrop.gd"
+}, {
+"base": "ColorRect",
+"class": "RainDrops",
+"language": "GDScript",
+"path": "res://src/RainDrops.gd"
+}, {
 "base": "AudioStreamPlayer",
 "class": "RandomAudioStreamPlayer",
 "language": "GDScript",
@@ -213,6 +228,11 @@ _global_script_classes=[ {
 "class": "UIScreen",
 "language": "GDScript",
 "path": "res://src/ui/lib/UIScreen.gd"
+}, {
+"base": "CanvasLayer",
+"class": "ViewportCanvasLayer",
+"language": "GDScript",
+"path": "res://src/ViewportCanvasLayer.gd"
 } ]
 _global_script_class_icons={
 "AttackEffect": "",
@@ -223,6 +243,7 @@ _global_script_class_icons={
 "Game": "",
 "GamepadScrollContainer": "",
 "Glass": "",
+"GlassShader": "",
 "Goal": "",
 "HUD": "",
 "HealthMeter": "",
@@ -243,6 +264,8 @@ _global_script_class_icons={
 "PlayerDrop": "",
 "PopScreenButton": "",
 "PushScreenButton": "",
+"RainDrop": "",
+"RainDrops": "",
 "RandomAudioStreamPlayer": "",
 "RandomAudioStreamPlayer2D": "",
 "SpriteParticles": "",
@@ -255,7 +278,8 @@ _global_script_class_icons={
 "TransitionSlide": "",
 "UIController": "",
 "UIControllerAudio": "",
-"UIScreen": ""
+"UIScreen": "",
+"ViewportCanvasLayer": ""
 }
 
 [application]
