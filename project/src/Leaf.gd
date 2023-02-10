@@ -17,7 +17,7 @@ onready var branch_offset: Node2D = $"%BranchOffset"
 onready var lobes: Node2D = $"%Lobes"
 onready var collision_shape: CollisionShape2D = $"%CollisionShape2D"
 onready var stem: Line2D = $"%Stem"
-onready var polygon: Polygon2D = $"%Polygon2D"
+onready var blade: Line2D = $"%Blade"
 onready var water_sensor: Area2D = $"%WaterSensor"
 
 
@@ -28,6 +28,7 @@ var mature_lobe_length: float
 var mature_lobe_width: float
 var current_length: float = 0.0
 var branch_width: float = 2.0 setget set_branch_width
+var total_segment_index: int = 0
 var parent_segment_index: int = 0
 var parent_branch
 var bbox: Rect2
@@ -62,7 +63,7 @@ func set_branch_width(value: float):
 func set_health(value: float):
 	health = value
 	if is_ready:
-		lobes.modulate = color_gradient.interpolate(clamp(1.0 - value, 0.0, 1.0))
+		blade.modulate = color_gradient.interpolate(clamp(1.0 - value, 0.0, 1.0))
 
 
 func _ready() -> void:
@@ -70,19 +71,27 @@ func _ready() -> void:
 	mature_lobe_length = mature_length - mature_stem_length
 	mature_lobe_width = mature_lobe_length * lobe_aspect_ratio
 	stem.set_point_position(1, Vector2(mature_length, 0.0))
-	var points: PoolVector2Array = Math.make_leaf_polygon(mature_lobe_length, Vector2.ZERO, 24)
-	points = Transform2D.IDENTITY.scaled(Vector2(1.0, lobe_aspect_ratio)).xform(points)
+	blade.width = mature_lobe_width
 
-	var points_bbox: Rect2 = Math.bbox(points)
+	var mature_lobe_extent: float = mature_lobe_width * 0.5
+	var polygon: Array = []
+	var point_count: int = blade.get_point_count()
+	var points: Array = Math.evenly_spread(0.0, mature_lobe_length, point_count)
+	var index: int = 0
+	while index < point_count:
+		blade.set_point_position(index, Vector2(points[index], 0.0))
+		var offset: float = float(index) / float(point_count - 1) if point_count > 1 else 0.0
+		var extent: float = mature_lobe_extent * blade.width_curve.interpolate_baked(offset)
+		polygon.append(Vector2(points[index], -extent))
+		polygon.insert(0, Vector2(points[index], extent))
+		index += 1
 
+	var points_bbox: Rect2 = Math.bbox(polygon)
 	if not collision_shape.shape is ConvexPolygonShape2D:
 		collision_shape.shape = ConvexPolygonShape2D.new()
-	collision_shape.shape.set_point_cloud(points)
+	collision_shape.shape.set_point_cloud(polygon)
 	collision_shape.disabled = false
 	collision_shape.position = Vector2((mature_lobe_length * 0.5) - points_bbox.get_center().x, 0.0)
-
-	polygon.polygon = points
-	polygon.position = collision_shape.position
 
 	is_ready = true
 

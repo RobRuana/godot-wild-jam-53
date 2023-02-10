@@ -1,4 +1,5 @@
-extends Node
+class_name DropManager
+extends Node2D
 
 const RAIN_DROP: PackedScene = preload("res://src/Drop.tscn")
 

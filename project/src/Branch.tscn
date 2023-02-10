@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://src/Branch.gd" type="Script" id=1]
 
@@ -11,9 +11,18 @@ resource_local_to_scene = true
 interpolation_mode = 2
 colors = PoolColorArray( 0, 0.733333, 0, 1, 0, 1, 0, 1 )
 
+[sub_resource type="Gradient" id=9]
+interpolation_mode = 2
+offsets = PoolRealArray( 0, 0.2, 0.8, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 0.878431, 0.878431, 0.878431, 1, 0.878431, 0.878431, 0.878431, 1, 1, 1, 1, 1 )
+
+[sub_resource type="GradientTexture2D" id=10]
+gradient = SubResource( 9 )
+width = 1
+fill_to = Vector2( 0, 1 )
+
 [node name="Branch" type="Node2D"]
 script = ExtResource( 1 )
-max_segments_attenuation = 1.05
 
 [node name="Line2D" type="Line2D" parent="."]
 points = PoolVector2Array( 0, 0, 0, 0 )
@@ -21,10 +30,12 @@ width = 2.0
 width_curve = SubResource( 1 )
 default_color = Color( 1, 1, 1, 1 )
 gradient = SubResource( 2 )
+texture = SubResource( 10 )
+texture_mode = 2
 begin_cap_mode = 2
 end_cap_mode = 2
 antialiased = true
 
-[node name="Branches" type="Node2D" parent="."]
+[node name="Branches" type="YSort" parent="."]
 
-[node name="Leaves" type="Node2D" parent="."]
+[node name="Leaves" type="YSort" parent="."]

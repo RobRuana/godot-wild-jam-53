@@ -24,16 +24,21 @@ shader_type canvas_item;
 //#define HAS_HEART
 //#define USE_POST_PROCESSING
 
+
+uniform float fade_in_duration = 10.0;
+uniform float lightning: hint_range(-1.0, 1.0) = 0.0;
+
+
 vec3 N13(float p) {
-	//  from DAVE HOSKINS
-	vec3 p3 = fract(vec3(p) * vec3(.1031,.11369,.13787));
+	// from DAVE HOSKINS
+	vec3 p3 = fract(vec3(p) * vec3(0.1031, 0.11369, 0.13787));
 	p3 += dot(p3, p3.yzx + 19.19);
-	return fract(vec3((p3.x + p3.y)*p3.z, (p3.x+p3.z)*p3.y, (p3.y+p3.z)*p3.x));
+	return fract(vec3((p3.x + p3.y) * p3.z, (p3.x + p3.z) * p3.y, (p3.y + p3.z) * p3.x));
 }
 
 
 vec4 N14(float t) {
-	return fract(sin(t * vec4(123., 1024., 1456., 264.)) * vec4(6547., 345., 8799., 1564.));
+	return fract(sin(t * vec4(123.0, 1024.0, 1456.0, 264.0)) * vec4(6547.0, 345.0, 8799.0, 1564.0));
 }
 
 
@@ -43,7 +48,7 @@ float N(float t) {
 
 
 float Saw(float b, float t) {
-	return smoothstep(0., b, t) * smoothstep(1., b, t);
+	return smoothstep(0.0, b, t) * smoothstep(1.0, b, t);
 }
 
 
@@ -51,62 +56,62 @@ vec2 DropLayer2(vec2 uv, float t) {
 	uv.y = -uv.y;
 	vec2 orig_uv = uv;
 
-	uv.y += t*0.75;
-	vec2 a = vec2(6., 1.);
-	vec2 grid = a*2.;
-	vec2 id = floor(uv*grid);
+	uv.y += t * 0.75;
+	vec2 a = vec2(6.0, 1.0);
+	vec2 grid = a * 2.0;
+	vec2 id = floor(uv * grid);
 
 	float colShift = N(id.x);
 	uv.y += colShift;
 
-	id = floor(uv*grid);
-	vec3 n = N13(id.x*35.2+id.y*2376.1);
-	vec2 st = fract(uv*grid)-vec2(.5, 0);
+	id = floor(uv * grid);
+	vec3 n = N13(id.x * 35.2 + id.y * 2376.1);
+	vec2 st = fract(uv * grid) - vec2(0.5, 0);
 
-	float x = n.x-.5;
+	float x = n.x - 0.5;
 
-	float y = orig_uv.y*20.;
-	float wiggle = sin(y+sin(y));
-	x += wiggle*(.5-abs(x))*(n.z-.5);
-	x *= .7;
-	float ti = fract(t+n.z);
-	y = (Saw(.85, ti)-.5)*.9+.5;
+	float y = orig_uv.y * 20.0;
+	float wiggle = sin(y + sin(y));
+	x += wiggle * (0.5 - abs(x)) * (n.z - 0.5);
+	x *= 0.7;
+	float ti = fract(t + n.z);
+	y = (Saw(0.85, ti) - 0.5) * 0.9 + 0.5;
 	vec2 p = vec2(x, y);
 
-	float d = length((st-p)*a.yx);
+	float d = length((st - p) * a.yx);
 
-	float mainDrop = smoothstep(.4, .0, d);
+	float mainDrop = smoothstep(0.4, 0.0, d);
 
-	float r = sqrt(smoothstep(1., y, st.y));
-	float cd = abs(st.x-x);
-	float trail = smoothstep(.23*r, .15*r*r, cd);
-	float trailFront = smoothstep(-.02, .02, st.y-y);
-	trail *= trailFront*r*r;
+	float r = sqrt(smoothstep(1.0, y, st.y));
+	float cd = abs(st.x - x);
+	float trail = smoothstep(0.23 * r, 0.15 * r * r, cd);
+	float trailFront = smoothstep(-0.02, 0.02, st.y - y);
+	trail *= trailFront * r * r;
 
 	y = orig_uv.y;
-	float trail2 = smoothstep(.2*r, .0, cd);
-	float droplets = max(0., (sin(y*(1.-y)*120.)-st.y))*trail2*trailFront*n.z;
-	y = fract(y*10.)+(st.y-.5);
-	float dd = length(st-vec2(x, y));
-	droplets = smoothstep(.3, 0., dd);
-	float m = mainDrop+droplets*r*trailFront;
+	float trail2 = smoothstep(0.2 * r, 0.0, cd);
+	float droplets = max(0.0, (sin(y * (1.0 - y) * 120.0) - st.y)) * trail2 * trailFront * n.z;
+	y = fract(y * 10.0) + (st.y - 0.5);
+	float dd = length(st - vec2(x, y));
+	droplets = smoothstep(0.3, 0.0, dd);
+	float m = mainDrop + droplets * r * trailFront;
 
-	//m += st.x>a.y*.45 || st.y>a.x*.165 ? 1.2 : 0.;
+	//m += st.x>a.y * 0.45 || st.y>a.x * 0.165 ? 1.2 : 0.0;
 	return vec2(m, trail);
 }
 
 
 float StaticDrops(vec2 uv, float t) {
-	uv *= 40.;
+	uv *= 40.0;
 
 	vec2 id = floor(uv);
-	uv = fract(uv)-.5;
-	vec3 n = N13(id.x*107.45+id.y*3543.654);
-	vec2 p = (n.xy-.5)*.7;
-	float d = length(uv-p);
+	uv = fract(uv) - 0.5;
+	vec3 n = N13(id.x * 107.45 + id.y * 3543.654);
+	vec2 p = (n.xy - 0.5) * 0.7;
+	float d = length(uv - p);
 
-	float fade = Saw(.025, fract(t+n.z));
-	float c = smoothstep(.3, 0., d)*fract(n.z*10.)*fade;
+	float fade = Saw(0.025, fract(t + n.z));
+	float c = smoothstep(0.3, 0.0, d) * fract(n.z * 10.0) * fade;
 	return c;
 }
 
@@ -116,10 +121,10 @@ vec2 Drops(vec2 uv, float t, float l0, float l1, float l2) {
 	vec2 m1 = DropLayer2(uv, t) * l1;
 	vec2 m2 = DropLayer2(uv * 1.85, t) * l2;
 
-	float c = s+m1.x+m2.x;
-	c = smoothstep(.3, 1., c);
+	float c = s + m1.x + m2.x;
+	c = smoothstep(0.3, 1.0, c);
 
-	return vec2(c, max(m1.y*l0, m2.y*l1));
+	return vec2(c, max(m1.y * l0, m2.y * l1));
 }
 
 
@@ -140,107 +145,109 @@ vec4 photoshop_desaturate(vec4 color, float factor) {
 
 
 void fragment() {
-	// vec2 uv = (fragCoord.xy - .5 * iResolution.xy) / iResolution.y;
+	// vec2 uv = (fragCoord.xy - 0.5 * iResolution.xy) / iResolution.y;
 	// vec2 UV = fragCoord.xy / iResolution.xy;
 	// vec3 M = iMouse.xyz / iResolution.xyz;
-	// float T = iTime + M.x * 2.;
+	// float T = iTime + M.x * 2.0;
 
 	// #ifdef HAS_HEART
-	// T = mod(iTime, 102.);
-	// T = mix(T, M.x*102., M.z>0.?1.:0.);
+	// T = mod(iTime, 102.0);
+	// T = mix(T, M.x * 102.0, M.z>0.0?1.0:0.0);
 	// #endif
 
 	float T = TIME;
-	float t = T * .2;
+	float t = T * 0.2;
 
-	// float rainAmount = iMouse.z>0. ? M.y : sin(T*.05)*.3+.7;
-	float rainAmount = sin(T * .05) * .3 + .7;
+	// float rainAmount = iMouse.z>0.0 ? M.y : sin(T * 0.05) * 0.3+0.7;
+	float rainAmount = sin(T * 0.05) * 0.3 + 0.7;
 
-	float maxBlur = mix(3., 6., rainAmount);
-	float minBlur = 2.;
-
-	float story = 0.;
-	float heart = 0.;
+	float maxBlur = mix(3.0, 6.0, rainAmount);
+	float minBlur = 2.0;
 
 	// #ifdef HAS_HEART
-	// story = smoothstep(0., 70., T);
+	// story = smoothstep(0.0, 70.0, T);
 
-	// t = min(1., T/70.);						// remap drop time so it goes slower when it freezes
-	// t = 1.-t;
-	// t = (1.-t*t)*70.;
+	// t = min(1.0, T/70.0);						// remap drop time so it goes slower when it freezes
+	// t = 1.0-t;
+	// t = (1.0-t * t) * 70.0;
 
-	// float zoom= mix(.3, 1.2, story);		// slowly zoom out
+	// float zoom= mix(0.3, 1.2, story);		// slowly zoom out
 	// uv *=zoom;
-	// minBlur = 4.+smoothstep(.5, 1., story)*3.;		// more opaque glass towards the end
-	// maxBlur = 6.+smoothstep(.5, 1., story)*1.5;
+	// minBlur = 4.0+smoothstep(0.5, 1.0, story) * 3.0;		// more opaque glass towards the end
+	// maxBlur = 6.0+smoothstep(0.5, 1.0, story) * 1.5;
 
-	// vec2 hv = uv-vec2(.0, -.1);				// build heart
-	// hv.x *= .5;
-	// float s = smoothstep(110., 70., T);				// heart gets smaller and fades towards the end
-	// hv.y-=sqrt(abs(hv.x))*.5*s;
+	// vec2 hv = uv-vec2(0.0, -0.1);				// build heart
+	// hv.x *= 0.5;
+	// float s = smoothstep(110.0, 70.0, T);				// heart gets smaller and fades towards the end
+	// hv.y-=sqrt(abs(hv.x)) * 0.5 * s;
 	// heart = length(hv);
-	// heart = smoothstep(.4*s, .2*s, heart)*s;
+	// heart = smoothstep(0.4 * s, 0.2 * s, heart) * s;
 	// rainAmount = heart;						// the rain is where the heart is
 
 	// maxBlur-=heart;							// inside the heart slighly less foggy
 	// uv *= 1.5;								// zoom out a bit more
-	// t *= .25;
+	// t *= 0.25;
 	// #else
 
-//	float zoom = -cos(T*.2);
+	//	float zoom = -cos(T * 0.2);
 	float zoom = 1.0;
 	vec2 uv = UV;
-	uv *= .7+zoom*.3;
+	uv *= 0.7 + zoom * 0.3;
 
 	// #endif
 
-	vec2 custom_uv = (UV-.5)*(.9+zoom*.1)+.5;
+	vec2 custom_uv = (UV - 0.5) * (0.9 + zoom * 0.1) + 0.5;
 
-	float staticDrops = smoothstep(-.5, 1., rainAmount)*2.;
-	float layer1 = smoothstep(.25, .75, rainAmount);
-	float layer2 = smoothstep(.0, .5, rainAmount);
+	float staticDrops = smoothstep(-0.5, 1.0, rainAmount) * 2.0;
+	float layer1 = smoothstep(0.25, 0.75, rainAmount);
+	float layer2 = smoothstep(0.0, 0.5, rainAmount);
+	// float staticDrops = 0.0;
+	// float layer1 = 0.0;
+	// float layer2 = 0.0;
 
 
 	vec2 c = Drops(uv, t, staticDrops, layer1, layer2);
-	// #ifdef CHEAP_NORMALS
-	// 	vec2 n = vec2(dFdx(c.x), dFdy(c.x));// cheap normals (3x cheaper, but 2 times shittier ;))
-	// #else
-		vec2 e = vec2(.001, 0.);
-		float cx = Drops(uv+e, t, staticDrops, layer1, layer2).x;
-		float cy = Drops(uv+e.yx, t, staticDrops, layer1, layer2).x;
-		vec2 n = vec2(cx-c.x, cy-c.x);		// expensive normals
-	// #endif
+// #ifdef CHEAP_NORMALS
+	// cheap normals (3x cheaper, but 2 times shittier ;))
+	vec2 n = vec2(dFdx(c.x), dFdy(c.x));
+// #else
+	// expensive normals
+	// vec2 e = vec2(0.001, 0.0);
+	// float cx = Drops(uv + e, t, staticDrops, layer1, layer2).x;
+	// float cy = Drops(uv + e.yx, t, staticDrops, layer1, layer2).x;
+	// vec2 n = vec2(cx - c.x, cy - c.x);
+// #endif
 
-
-	// #ifdef HAS_HEART
-	// n *= 1.-smoothstep(60., 85., T);
-	// c.y *= 1.-smoothstep(80., 100., T)*.8;
-	// #endif
-
-	float focus = mix(maxBlur-c.y, minBlur, smoothstep(.1, .2, c.x));
+	float focus = mix(maxBlur - c.y, minBlur, smoothstep(0.1, 0.2, c.x));
 	vec3 col = generic_desaturate(textureLod(TEXTURE, custom_uv + n, focus), 1.0).rgb;
 
 
 	// #ifdef USE_POST_PROCESSING
-	t = (T+3.)*.5;										// make time sync with first lightnoing
-	float colFade = sin(t*.2)*.5+.5+story;
-	//col *= mix(vec3(1.), vec3(.8, .9, 1.3), colFade);	// subtle color shift
-	float fade = smoothstep(0., 10., T);							// fade in at the start
-	float lightning = sin(t*sin(t*10.));				// lighting flicker
-	lightning *= pow(max(0., sin(t+sin(t))), 10.);		// lightning flash
-	col *= 1.+lightning*fade*mix(1., .1, story*story);	// composite lightning
+	t = (T + 3.0) * 0.5; // make time sync with first lightning
 
-	vec2 vignette_uv = UV - .5;
-	col *= 1. - dot(vignette_uv, UV);							// vignette
+	// subtle color shift
+	// float colFade = sin(t * 0.2) * 0.5 + 0.5;
+	//col *= mix(vec3(1.0), vec3(0.8, 0.9, 1.3), colFade);
+
+	// fade in at the start
+	float fade = smoothstep(0.0, fade_in_duration, T);
+
+	// lightning
+	// float lightning = sin(t * sin(t * 10.0)); // lighting flicker
+	// lightning *= pow(max(0.0, sin(t + sin(t))), 10.0); // lightning flash
+	// col *= 1.0 + lightning * fade; // composite flicker and flash
+	col *= 1.0 + lightning * fade;
+
+	// vignette
+	col *= 1.0 - dot(UV - 0.5, UV);
 
 	// #ifdef HAS_HEART
 	// 	col = mix(pow(col, vec3(1.2)), col, heart);
-	// 	fade *= smoothstep(102., 97., T);
+	// 	fade *= smoothstep(102.0, 97.0, T);
 	// #endif
 
-	col *= fade;										// composite start and end fade
+	col *= fade; // composite start and end fade
 	// #endif
 
-	//col = vec3(heart);
-	COLOR = vec4(col, 1.);
+	COLOR = vec4(col, 1.0);
 }

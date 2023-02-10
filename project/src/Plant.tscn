@@ -4,11 +4,7 @@
 
 [node name="Plant" type="Node2D"]
 script = ExtResource( 1 )
-leafiness = 0.8
-branch_segment_angle_easing = 1.5
-branch_segment_angle_attenuation = 1.0
-grow_interval = 0.05
-growth_rate = 50.0
+segment_angle_easing = 1.0
 
 [node name="GrowTimer" type="Timer" parent="."]
 unique_name_in_owner = true

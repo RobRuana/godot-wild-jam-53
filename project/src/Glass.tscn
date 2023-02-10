@@ -6,6 +6,8 @@
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 3 )
+shader_param/fade_in_duration = 10.0
+shader_param/lightning = 0.0
 
 [node name="Glass" type="TextureRect"]
 material = SubResource( 1 )

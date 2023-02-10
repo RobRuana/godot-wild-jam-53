@@ -24,12 +24,17 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/Drop.gd"
 }, {
+"base": "Node2D",
+"class": "DropManager",
+"language": "GDScript",
+"path": "res://src/DropManager.gd"
+}, {
 "base": "Tween",
 "class": "Fader",
 "language": "GDScript",
 "path": "res://src/utils/Fader.gd"
 }, {
-"base": "Control",
+"base": "Node2D",
 "class": "Game",
 "language": "GDScript",
 "path": "res://src/Game.gd"
@@ -213,6 +218,7 @@ _global_script_class_icons={
 "AttackEffect": "",
 "Branch": "",
 "Drop": "",
+"DropManager": "",
 "Fader": "",
 "Game": "",
 "GamepadScrollContainer": "",

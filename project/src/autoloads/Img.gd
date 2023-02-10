@@ -4,6 +4,26 @@ const RECT_ZERO: Rect2 = Rect2(0.0, 0.0, 0.0, 0.0)
 const TEXTURE_FLAG_FILTER = 4  # from visual_server.h in godot
 
 
+func create_vector_array_image(array: Array) -> Image:
+	var array_size: int = array.size()
+	var image: Image = Image.new()
+	image.create(array_size, 1, false, Image.FORMAT_RG8)
+	image.lock()
+	var index: int = 0
+	while index < array_size:
+		var v = array[index]
+		image.set_pixel(index, 0, Color(v.x, v.y, 0.0))
+		index += 1
+	image.unlock()
+	return image
+
+
+func create_vector_array_texture(array: Array) -> ImageTexture:
+	var texture: ImageTexture = ImageTexture.new()
+	texture.create_from_image(create_vector_array_image(array), 0)
+	return texture
+
+
 func get_display_size(sprite: Sprite) -> Vector2:
 	if sprite.region_enabled:
 		return sprite.region_rect.size

@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://src/Leaf.gd" type="Script" id=1]
 
@@ -7,20 +7,38 @@ interpolation_mode = 2
 offsets = PoolRealArray( 0, 0.489305, 1 )
 colors = PoolColorArray( 0, 0.733333, 0, 1, 0.880859, 0.854582, 0.208172, 1, 0.496094, 0.413734, 0.248047, 1 )
 
+[sub_resource type="Curve" id=6]
+_data = [ Vector2( 0, 0 ), 0.0, 8.53731, 0, 0, Vector2( 0.334307, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), -2.45986, 0.0, 0, 0 ]
+
+[sub_resource type="Gradient" id=11]
+resource_local_to_scene = true
+interpolation_mode = 2
+offsets = PoolRealArray( 0.00826446, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 0.878431, 0.878431, 0.878431, 1 )
+
+[sub_resource type="Gradient" id=9]
+interpolation_mode = 2
+offsets = PoolRealArray( 0, 0.2, 0.8, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 0.878431, 0.878431, 0.878431, 1, 0.878431, 0.878431, 0.878431, 1, 1, 1, 1, 1 )
+
+[sub_resource type="GradientTexture2D" id=10]
+gradient = SubResource( 9 )
+width = 1
+fill_to = Vector2( 0, 1 )
+
 [sub_resource type="ConvexPolygonShape2D" id=4]
+resource_local_to_scene = true
 points = PoolVector2Array( -61.8063, -3.81233, -59.2208, -11.2775, -54.158, -18.2709, -46.8297, -24.5, -37.5424, -29.7043, -26.6847, -33.6659, -14.7107, -36.2193, -2.12126, -37.2575, 10.5569, -36.7372, 22.7934, -34.6801, 34.0764, -31.1722, 43.934, -26.3604, 87.868, 0, 43.934, 26.3604, 34.0764, 31.1722, 22.7934, 34.6801, 10.5569, 36.7372, -2.12126, 37.2575, -14.7107, 36.2193, -26.6847, 33.6659, -37.5424, 29.7043, -46.8297, 24.5, -54.158, 18.2709, -59.2208, 11.2775, -61.8063, 3.81233, -61.8063, -3.81233 )
 
 [sub_resource type="Curve" id=3]
-min_value = 0.1
-_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.1 ), -2.81554, 0.0, 0, 0 ]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), -0.735528, 0.0, 0, 0 ]
 
-[sub_resource type="Gradient" id=5]
+[sub_resource type="Gradient" id=8]
 resource_local_to_scene = true
 interpolation_mode = 2
-colors = PoolColorArray( 0, 0.752941, 0, 1, 0.000713215, 0.376471, 0, 1 )
+colors = PoolColorArray( 0, 0.690196, 0, 1, 0, 0.376471, 0, 1 )
 
 [node name="Leaf" type="Node2D"]
-z_index = 1
 script = ExtResource( 1 )
 stem_length_ratio = 0.25
 mature_length = 200.0
@@ -32,14 +50,21 @@ position = Vector2( -1, 0 )
 
 [node name="Lobes" type="Node2D" parent="BranchOffset"]
 unique_name_in_owner = true
-modulate = Color( 0, 0.733333, 0, 1 )
+modulate = Color( 0, 0.690196, 0, 1 )
 position = Vector2( 50, 0 )
 
-[node name="Polygon2D" type="Polygon2D" parent="BranchOffset/Lobes"]
+[node name="Blade" type="Line2D" parent="BranchOffset/Lobes"]
 unique_name_in_owner = true
-position = Vector2( 61.9692, 0 )
+points = PoolVector2Array( 0, 0, 8, 0, 16, 0, 24, 0, 32, 0, 40, 0, 48, 0, 56, 0, 64, 0, 72, 0, 80, 0, 88, 0, 96, 0, 104, 0, 112, 0, 120, 0, 128, 0, 136, 0, 144, 0 )
+width = 72.0
+width_curve = SubResource( 6 )
+default_color = Color( 1, 1, 1, 1 )
+gradient = SubResource( 11 )
+texture = SubResource( 10 )
+texture_mode = 2
+joint_mode = 2
+round_precision = 12
 antialiased = true
-polygon = PoolVector2Array( 43.934, 26.3604, 34.0764, 31.1722, 22.7934, 34.6801, 10.5569, 36.7372, -2.12126, 37.2575, -14.7107, 36.2193, -26.6847, 33.6659, -37.5424, 29.7043, -46.8297, 24.5, -54.158, 18.2709, -59.2208, 11.2775, -61.8063, 3.81233, -61.8063, -3.81233, -59.2208, -11.2775, -54.158, -18.2709, -46.8297, -24.5, -37.5424, -29.7043, -26.6847, -33.6659, -14.7107, -36.2193, -2.12126, -37.2575, 10.5569, -36.7372, 22.7934, -34.6801, 34.0764, -31.1722, 43.934, -26.3604, 87.868, 0 )
 
 [node name="WaterSensor" type="Area2D" parent="BranchOffset/Lobes"]
 unique_name_in_owner = true
@@ -52,10 +77,12 @@ shape = SubResource( 4 )
 
 [node name="Stem" type="Line2D" parent="BranchOffset"]
 unique_name_in_owner = true
-points = PoolVector2Array( 0, 0, 200, 0 )
+points = PoolVector2Array( 0, 0, 194, 0 )
 width = 4.0
 width_curve = SubResource( 3 )
 default_color = Color( 1, 1, 1, 1 )
-gradient = SubResource( 5 )
+gradient = SubResource( 8 )
+texture = SubResource( 10 )
+texture_mode = 2
 begin_cap_mode = 2
 antialiased = true

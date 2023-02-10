@@ -40,23 +40,29 @@ func pow_ease_in(n: float, exponent: float) -> float:
 
 
 func get_acute_angle(v1: Vector2, v2: Vector2) -> float:
-	var angle: float = v1.angle_to(v2)
+	return complementary_acute_angle(v1.angle_to(v2))
+
+
+func complementary_acute_angle(angle: float) -> float:
 	var abs_angle: float = abs(angle)
 	if abs_angle == 0.0:
 		return 0.0
 	if abs_angle <= HALF_PI:
 		return angle
-	return -sign(angle) * (PI - abs_angle)
+	return sign(angle) * (PI - abs_angle)
 
 
 func get_obtuse_angle(v1: Vector2, v2: Vector2) -> float:
-	var angle: float = v1.angle_to(v2)
+	return complementary_obtuse_angle(v1.angle_to(v2))
+
+
+func complementary_obtuse_angle(angle: float) -> float:
 	var abs_angle: float = abs(angle)
 	if abs_angle == 0.0:
 		return PI
 	if abs_angle > HALF_PI:
 		return angle
-	return -sign(angle) * (PI - abs_angle)
+	return sign(angle) * (PI - abs_angle)
 
 
 func get_inside_angle(v1: Vector2, v2: Vector2) -> float:
@@ -66,7 +72,7 @@ func get_inside_angle(v1: Vector2, v2: Vector2) -> float:
 		return 0.0
 	if abs_angle <= PI:
 		return angle
-	return -sign(angle) * (TWO_PI - abs_angle)
+	return sign(angle) * (TWO_PI - abs_angle)
 
 
 func get_outside_angle(v1: Vector2, v2: Vector2) -> float:
@@ -76,7 +82,7 @@ func get_outside_angle(v1: Vector2, v2: Vector2) -> float:
 		return TWO_PI
 	if abs_angle > PI:
 		return angle
-	return -sign(angle) * (TWO_PI - abs_angle)
+	return sign(angle) * (TWO_PI - abs_angle)
 
 
 func closest_equivalent_angle(from: float, to: float) -> float:
@@ -296,3 +302,125 @@ func flip_h(t: Transform2D, flip: bool) -> Transform2D:
 	t.x.x = abs(t.x.x) * sign(t.y.y) * flip_sign
 	t.x.y = abs(t.x.y) * sign(t.y.x) * -flip_sign
 	return t
+
+
+# ========================================================
+# Numeric functions
+# ========================================================
+
+func move_toward_each_other(n1: float, n2: float, delta: float, allow_crossover: bool = false) -> Array:
+	if not allow_crossover and abs(n2 - n1) * 0.5 <= delta:
+		var center: float = 0.5 * (n1 + n2)
+		return [center, center]
+	return [move_toward(n1, n2, delta), move_toward(n2, n1, delta)]
+
+
+func move_toward_each_other_x(p1: Vector2, p2: Vector2, delta: float, allow_crossover: bool = false) -> Array:
+	var values: Array = move_toward_each_other(p1.x, p2.x, delta, allow_crossover)
+	return [Vector2(values[0], p1.y), Vector2(values[1], p2.y)]
+
+
+func move_toward_each_other_y(p1: Vector2, p2: Vector2, delta: float, allow_crossover: bool = false) -> Array:
+	var values: Array = move_toward_each_other(p1.y, p2.y, delta, allow_crossover)
+	return [Vector2(p1.x, values[0]), Vector2(p2.x, values[1])]
+
+
+func move_toward_each_other_v(p1: Vector2, p2: Vector2, delta: float, allow_crossover: bool = false) -> Array:
+	if not allow_crossover and p1.distance_to(p2) * 0.5 <= delta:
+		var center: Vector2 = 0.5 * (p1 + p2)
+		return [center, center]
+	return [p1.move_toward(p2, delta), p2.move_toward(p1, delta)]
+
+
+func evenly_spread(n1: float, n2: float, count: int) -> Array:
+	var values: Array = [n1]
+	var length: float = abs(n2 - n1)
+	if count > 2:
+		var spacing: float = length / float(count - 1)
+		for i in range(1, count - 1):
+			values.append(move_toward(n1, n2, spacing * float(i)))
+	values.append(n2)
+	return values
+
+
+func evenly_spread_x(p1: Vector2, p2: Vector2, count: int) -> Array:
+	var values: Array = []
+	for value in evenly_spread(p1.x, p2.x, count):
+		values.append(Vector2(value, range_lerp(value, p1.x, p2.x, p1.y, p2.y)))
+	return values
+
+
+func evenly_spread_y(p1: Vector2, p2: Vector2, count: int) -> Array:
+	var values: Array = []
+	for value in evenly_spread(p1.x, p2.x, count):
+		values.append(Vector2(value, range_lerp(value, p1.x, p2.x, p1.y, p2.y)))
+	return values
+
+
+func evenly_spread_v(p1: Vector2, p2: Vector2, count: int) -> Array:
+	var values: Array = [p1]
+	var length: float = p1.distance_to(p2)
+	if count > 2:
+		var spacing: float = length / float(count - 1)
+		for i in range(1, count - 1):
+			values.append(p1.move_toward(p2, spacing * float(i)))
+	values.append(p2)
+	return values
+
+
+func evenly_spaced(n1: float, n2: float, spacing: float) -> Array:
+	var values: Array = [n1]
+	var length: float = abs(n2 - n1)
+	var count: int = 0
+	if length > spacing:
+		count = int(round(length / spacing))
+		if count > 0:
+			spacing = length / float(count)
+	for i in range(1, count):
+		values.append(move_toward(n1, n2, spacing * float(i)))
+	values.append(n2)
+	return values
+
+
+func evenly_spaced_x(p1: Vector2, p2: Vector2, spacing: float) -> Array:
+	var values: Array = []
+	for value in evenly_spaced(p1.x, p2.x, spacing):
+		values.append(Vector2(value, range_lerp(value, p1.x, p2.x, p1.y, p2.y)))
+	return values
+
+
+func evenly_spaced_y(p1: Vector2, p2: Vector2, spacing: float) -> Array:
+	var values: Array = []
+	for value in evenly_spaced(p1.y, p2.y, spacing):
+		values.append(Vector2(range_lerp(value, p1.y, p2.y, p1.x, p2.x), value))
+	return values
+
+
+func evenly_spaced_v(p1: Vector2, p2: Vector2, spacing: float) -> Array:
+	var values: Array = [p1]
+	var length: float = p1.distance_to(p2)
+	var count: int = 0
+	if length > spacing:
+		count = int(round(length / spacing))
+		if count > 0:
+			spacing = length / float(count)
+	for i in range(1, count):
+		values.append(p1.move_toward(p2, spacing * float(i)))
+	values.append(p2)
+	return values
+
+
+func floor_snap(value: float, step: float) -> float:
+	return floor(value / step) * step
+
+
+func ceil_snap(value: float, step: float) -> float:
+	return ceil(value / step) * step
+
+
+func floor_snap_v(value: Vector2, step: Vector2) -> Vector2:
+	return (value / step).floor() * step
+
+
+func ceil_snap_v(value: Vector2, step: Vector2) -> Vector2:
+	return (value / step).ceil() * step
