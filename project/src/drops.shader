@@ -5,6 +5,7 @@ uniform float blur = 5.0;
 uniform float desaturate = 1.0;
 uniform float fade_in_duration = 10.0;
 uniform float lightning: hint_range(-1.0, 1.0) = 0.0;
+uniform float normal_scale: hint_range(-2.0, 2.0) = 1.0;
 uniform sampler2D drops_texture;
 
 
@@ -30,11 +31,11 @@ void fragment() {
 
 	vec4 drops_color = texture(drops_texture, drops_uv);
 	
-	float blur_factor = 1.0 - max(max(drops_color.r, drops_color.g), drops_color.b);
+	float blur_factor = 1.0 - drops_color.a;
 	float drops_blur = mix(0.0, blur, blur_factor);
 
-	vec2 normal = (drops_color.rg - vec2(0.5)) * 0.5;
-	float strength = (1.0 - drops_color.b) * (1.0 - blur_factor);
+	vec2 normal = (drops_color.rg - vec2(0.5)) * 2.0 * normal_scale;
+	float strength = (drops_color.a) * (1.0 - drops_color.b);
 	vec2 screen_uv = UV + (normal * strength);
 	vec4 screen_color = textureLod(TEXTURE, screen_uv, drops_blur);
 
